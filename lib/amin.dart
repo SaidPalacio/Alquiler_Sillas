@@ -1,20 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
-class Admin extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Panel de Administración',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: AdminPanel(),
-    );
-  }
-}
-
 class AdminPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

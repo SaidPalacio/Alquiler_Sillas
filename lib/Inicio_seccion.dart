@@ -1,4 +1,5 @@
-import 'package:agendar_sillas/siguiente_pagina.dart';
+import 'package:agendar_sillas/Usuario.dart';
+import 'package:agendar_sillas/amin.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,17 +15,27 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
   final TextEditingController usuario = TextEditingController();
   final TextEditingController pin = TextEditingController();
   final TextEditingController correo = TextEditingController();
+  bool esAdministrador = false;
 
   Future<void> verificar(usuario,pin) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if(usuario == prefs.getString("correo") && pin == prefs.getString("pin")){
         print("inicio de sección satisfactoriamente");
-        Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>  siguiente_pagina(),
-        ),
-      );
+        if(esAdministrador== true){
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>  AdminPanel(),
+            ),
+          );
+        }else if(esAdministrador==false){
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>  Usuario(),
+            ),
+          );
+        }
     }
     else{
       print("inicio de sección fallido");
@@ -68,6 +79,19 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
                   decoration: const InputDecoration(labelText: 'Contraseña'),
                 ),
                 const SizedBox(height: 20,),
+                Row(
+                  children: [
+                    Text('¿Es administrador?'),
+                    Checkbox(
+                      value: esAdministrador,
+                      onChanged: (value) {
+                        setState(() {
+                          esAdministrador = value ?? false;
+                        });
+                      },
+                    ),
+                  ],
+                ),
                 ElevatedButton(
                   onPressed: (){
                     verificar(usuario.text, pin.text);

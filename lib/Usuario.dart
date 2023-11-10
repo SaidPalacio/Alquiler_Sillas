@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-class siguiente_pagina extends StatelessWidget {
+class Usuario extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
