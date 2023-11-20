@@ -1,4 +1,4 @@
-import 'package:agendar_sillas/Usuario.dart';
+import 'package:agendar_sillas/Cliente.dart';
 import 'package:agendar_sillas/amin.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,7 +32,7 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) =>  Usuario(),
+              builder: (context) =>  cliente(),
             ),
           );
         }
