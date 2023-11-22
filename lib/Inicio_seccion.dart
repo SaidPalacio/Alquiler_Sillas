@@ -25,7 +25,7 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) =>  AdminPanel(),
+              builder: (context) =>  admin(),
             ),
           );
         }else if(esAdministrador==false){

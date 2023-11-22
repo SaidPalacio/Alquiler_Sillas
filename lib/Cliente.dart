@@ -1,8 +1,8 @@
-import 'package:agendar_sillas/widgets/TipoSillas.dart';
+import 'package:agendar_sillas/widgets/TipoSillas_cliente.dart';
 import 'package:flutter/material.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class cliente extends StatelessWidget {
+  const cliente({super.key});
 
   // This widget is the root of your application.
   @override
@@ -16,7 +16,8 @@ class MyApp extends StatelessWidget {
           centerTitle: true,
           
         ),
-        body: Tipo_sillas(),
+        drawer: Tipo_sillas_cliente(),
+        body: Tipo_sillas_cliente(),
       ),
     );
   }

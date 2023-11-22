@@ -2,7 +2,7 @@ import 'package:agendar_sillas/data/Data.dart';
 import 'package:agendar_sillas/widgets/SillasItem.dart';
 import 'package:flutter/material.dart';
 
-class Tipo_sillas extends StatelessWidget {
+class Tipo_sillas_cliente extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
