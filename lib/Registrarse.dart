@@ -1,3 +1,4 @@
+import 'package:agendar_sillas/Bienvenida.dart';
 import 'package:agendar_sillas/Inicio_seccion.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -46,6 +47,39 @@ class _RegistrarseState extends State<Registrarse> {
               padding: const EdgeInsets.all(80.0),
               child:  Column(
                 children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: ElevatedButton(
+                      onPressed:(){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MyHomePage() , 
+                          ),
+                        );
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 8, 222, 205),),
+                        fixedSize: MaterialStateProperty.all(Size(135, 30)),
+                        shape: MaterialStateProperty.all<OutlinedBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                        side: MaterialStateProperty.all<BorderSide>(
+                          const BorderSide(color: Colors.black), 
+                        ),
+                      ),
+                      child: const Text(
+                        "← ATRAS",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 100,),
                   TextField(
                     controller: nombre,
                     decoration: const InputDecoration(labelText: 'Nombres'),

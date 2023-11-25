@@ -1,3 +1,4 @@
+import 'package:agendar_sillas/Bienvenida.dart';
 import 'package:agendar_sillas/Cliente.dart';
 import 'package:agendar_sillas/amin.dart';
 import 'package:flutter/material.dart';
@@ -67,6 +68,39 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
           ),
           Column(
             children: [
+              const SizedBox(height: 40),
+              Align(
+                alignment: Alignment.topLeft,
+                child: ElevatedButton(
+                  onPressed:(){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MyHomePage() , 
+                      ),
+                    );
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 8, 222, 205),),
+                    fixedSize: MaterialStateProperty.all(const Size(135, 30)),
+                    shape: MaterialStateProperty.all<OutlinedBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                    side: MaterialStateProperty.all<BorderSide>(
+                      const BorderSide(color: Colors.black), 
+                    ),
+                  ),
+                  child: const Text(
+                    "← ATRAS",
+                    style: TextStyle(
+                      color: Colors.black,
+                        fontSize: 20
+                    ),
+                  ),
+                ),
+              ),
               const SizedBox(height: 40),
               SizedBox(
                 height: 200,
