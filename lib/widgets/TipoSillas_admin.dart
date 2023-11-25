@@ -3,6 +3,8 @@ import 'package:agendar_sillas/widgets/SillasItem.dart';
 import 'package:flutter/material.dart';
 
 class Tipo_sillas_admin extends StatelessWidget {
+  const Tipo_sillas_admin({super.key});
+
   
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,7 @@
 
 import 'package:agendar_sillas/models/Sillas.dart';
 
-final List<Silla> listaSillas = [
+final  listaSillas = [
     Silla(
       nombre: 'Silla para Bodas 1',
       categoria: 'Bodas',
@@ -87,5 +87,4 @@ final List<Silla> listaSillas = [
       promocion: "",
     ),
     
-    // Agrega más sillas según sea necesario
   ];

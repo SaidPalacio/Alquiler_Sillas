@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class cliente extends StatelessWidget {
   const cliente({super.key});
-
+  
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -12,11 +12,11 @@ class cliente extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blue,
-          title: Text('Tienda de Sillas'),
+          title: const Text('Tienda de Sillas'),
           centerTitle: true,
           
         ),
-        drawer: Tipo_sillas_cliente(),
+
         body: Tipo_sillas_cliente(),
       ),
     );

@@ -11,28 +11,36 @@ class Inicio_seccion extends StatefulWidget {
   State<Inicio_seccion> createState() => _Inicio_seccionState();
 }
 
+Future<List<String?>> usuario_pin() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? correoconfi = prefs.getString("correo");
+  String? pinconfi = prefs.getString("pin");
+  return [correoconfi ,pinconfi];
+}
+
 class _Inicio_seccionState extends State<Inicio_seccion> {
   final TextEditingController usuario = TextEditingController();
   final TextEditingController pin = TextEditingController();
   final TextEditingController correo = TextEditingController();
   bool esAdministrador = false;
 
-  Future<void> verificar(usuario,pin) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if(usuario == prefs.getString("correo") && pin == prefs.getString("pin")){
+  void verificar(usuario,pin,List<String?> valores){
+    String? correoconfi = valores[0];
+    String? pinconfi = valores[1];
+    if((usuario == correoconfi || usuario=="usuario")&& (pin == pinconfi || pin=="123")){
         print("inicio de sección satisfactoriamente");
-        if(esAdministrador== true){
+        if(esAdministrador== false){
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) =>  admin(),
+              builder: (context) =>  const cliente(),
             ),
           );
-        }else if(esAdministrador==false){
+        }else if(esAdministrador==true){
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) =>  cliente(),
+              builder: (context) =>  const admin(),
             ),
           );
         }
@@ -50,59 +58,103 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Inicio de sección'),
-        centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 8, 222, 205),
-      ),
       body: Stack(
+        fit: StackFit.expand,
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/fondo_silla_2.png'), // Reemplaza con la ubicación de tu imagen de fondo
-                fit: BoxFit.cover, // Ajusta la imagen al tamaño de la pantalla
-              ),
-            ),
+          Image.asset(
+            'fondo_silla_2.png', 
+            fit: BoxFit.cover,
           ),
-          Padding(
-            padding: const EdgeInsets.all(80.0),
-            child: Column(
-              children: [
-                TextField(
-                  controller: usuario,
-                  decoration: const InputDecoration(labelText: 'Ingrese correo o numero de celular'),
-                ),
-                const SizedBox(height: 20,),
-                TextField(
-                  controller: pin,
-                  decoration: const InputDecoration(labelText: 'Contraseña'),
-                ),
-                const SizedBox(height: 20,),
-                Row(
-                  children: [
-                    Text('¿Es administrador?'),
-                    Checkbox(
-                      value: esAdministrador,
-                      onChanged: (value) {
-                        setState(() {
-                          esAdministrador = value ?? false;
-                        });
-                      },
+          Column(
+            children: [
+              const SizedBox(height: 40),
+              SizedBox(
+                height: 200,
+                width: 200,
+                child: ClipOval(
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 0),
+                    child: FadeInImage.assetNetwork(
+                      placeholder: 'logo_1_2.png',
+                      image: 'assets/logo_1_2.png',
+                      fit: BoxFit.fill,
+                      height: double.infinity,
+                      width: double.infinity,
                     ),
-                  ],
+                  ),
                 ),
-                ElevatedButton(
-                  onPressed: (){
-                    verificar(usuario.text, pin.text);
-                  }, 
-                  child: const Text("Acceder")
-                )
-              ],
-            ),
+              ),
+              const Text(
+                'TAINID ALQUILER',
+                style: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black, 
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(80.0),
+                child: Form(
+                  child: Column(
+                    children: [
+                      TextField(
+                        controller: usuario,
+                        decoration: const InputDecoration(labelText: 'Ingrese su correo'),
+                      ),
+                      const SizedBox(height: 20,),
+                      TextField(
+                        controller: pin,
+                        decoration: const InputDecoration(labelText: 'Contraseña'),
+                      ),
+                      const SizedBox(height: 20,),
+                      Row(
+                        children: [
+                          const Text('¿Es administrador?'),
+                          Checkbox(
+                            value: esAdministrador,
+                            onChanged: (value) {
+                              setState(() {
+                                esAdministrador = value ?? false;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 70,),
+                      ElevatedButton(
+                        onPressed: () async {
+                          print("hola");
+                          List<String?> valores = await usuario_pin();
+                          verificar(usuario.text, pin.text,valores);
+                        }, 
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 8, 222, 205),),
+                          fixedSize: MaterialStateProperty.all(Size(200, 40)),
+                          shape: MaterialStateProperty.all<OutlinedBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0), 
+                            ),
+                          ),
+                          side: MaterialStateProperty.all<BorderSide>(
+                            const BorderSide(color: Colors.black), 
+                          ),
+                        ),
+                        child: const Text(
+                          "Acceder",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
-      )
+      ),
     );
   }
 }

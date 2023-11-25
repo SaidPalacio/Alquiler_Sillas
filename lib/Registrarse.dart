@@ -26,25 +26,21 @@ class _RegistrarseState extends State<Registrarse> {
     prefs.setString("celular",celular);
     prefs.setString("direccion",direccion);
     prefs.setString("pin",pin);
+    print("Guardo el usuario al shared_preferences");
     
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Registro'),
-        centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 8, 222, 205),
-      ),
         body: Stack(
           children: [
             Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/fondo_silla_2.png'), // Reemplaza con la ubicación de tu imagen de fondo
-                  fit: BoxFit.cover, // Ajusta la imagen al tamaño de la pantalla
+                  image: AssetImage('assets/fondo_silla_2.png'), 
+                  fit: BoxFit.cover, 
                 ),
-              ),    
+              ), 
             ),
             Padding(
               padding: const EdgeInsets.all(80.0),
@@ -82,16 +78,16 @@ class _RegistrarseState extends State<Registrarse> {
                     decoration:const InputDecoration(labelText: 'Confirmar Contraseña'),
                     obscureText: true,
                   ),
-                  const SizedBox(height: 20,),
+                  const SizedBox(height: 100,),
                   ElevatedButton(
                     onPressed:(){ 
                       if(pin.text == confipin.text){
                        _guardar(nombre.text,apellido.text,correo.text,celular.text,direccion.text,pin.text);  
-                       print("se guardo en shared");
+                       
                        Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const Inicio_seccion(), // Reemplaza con la página de destino
+                            builder: (context) => const Inicio_seccion(), 
                           ),
                         );
                       }else{
@@ -103,7 +99,25 @@ class _RegistrarseState extends State<Registrarse> {
                         );
                       }
                     },
-                    child: const Text("Registrase"),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 8, 222, 205),),
+                      fixedSize: MaterialStateProperty.all(Size(200, 40)),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                      ),
+                      side: MaterialStateProperty.all<BorderSide>(
+                        const BorderSide(color: Colors.black), 
+                      ),
+                    ),
+                    child: const Text(
+                      "REGISTRARSE",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20
+                      ),
+                    ),
                   )
                 ],
               ),
