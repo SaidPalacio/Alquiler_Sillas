@@ -1,4 +1,5 @@
 import 'package:agendar_sillas/widgets/TipoSillas_admin.dart';
+import 'package:agendar_sillas/widgets/draweradmi.dart';
 import 'package:flutter/material.dart';
 
 class admin extends StatelessWidget {
@@ -10,6 +11,7 @@ class admin extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        drawer: const draweradmi(),
         appBar: AppBar(
           backgroundColor: Colors.blue,
           title: Text('Tienda de Sillas'),

@@ -1,3 +1,4 @@
+import 'package:agendar_sillas/Cliente.dart';
 import 'package:agendar_sillas/models/Sillas.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -51,9 +52,29 @@ class DetalleSilla extends StatelessWidget {
                   style: TextStyle(fontSize: 18),
                 ),
                 Text(
+                  "Descipción:${silla.descripcion}",
+                  style: TextStyle(fontSize: 18),
+                ),
+                Text(
                   "precio:${silla.precio}",
                   style: TextStyle(fontSize: 18),
-                )
+                ),
+                ElevatedButton(
+                  onPressed:(){
+                    ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Alquiler reservado"),
+                    ),
+                  );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                      builder: (context) =>  const cliente(),
+                    ),
+                  );
+                  
+                  }, 
+                  child: Text("Alquilar"))
               ],
             ),
           )

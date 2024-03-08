@@ -3,18 +3,19 @@ import 'package:agendar_sillas/models/Sillas.dart';
 
 final  listaSillas = [
     Silla(
-      nombre: 'Silla para Bodas 1',
-      categoria: 'Bodas',
+      nombre: 'Silla para Conferencia',
+      categoria: 'Conferencia',
       precio: 100.0,
       imagenUrl: [
-        'assets/silla_1.png',
-        'assets/silla_2.png',
-        'assets/silla_3.png',
-        'assets/silla_4.png',
+        'assets/imagen_1_1.png.jpg',
+        'assets/imagen_2.png.jpg',
+        'assets/imagen_3.png.jpg',
+        'assets/imagen_4.png.jpg',
       ],
-      descripcion: "",
-      calificacion: "",
-      promocion: "",
+      descripcion: "La silla presenta un marco robusto de metal recubierto con un acabado plateado pulido que combina resistencia y elegancia. Las patas ligeramente curvadas no solo aportan estabilidad sino que también añaden un toque contemporáneo al diseño. El tapizado de primera calidad, disponible en una gama de colores neutros y profesionales, no solo realza la estética sino que también facilita la limpieza y el mantenimiento.",
+      calificacion: "4.5",
+      promocion: "Por tiempo limitado, al adquirir cuatro o más sillas de conferencia Harmonia Elegante, recibirás un exclusivo descuento del 20% en tu compra total. ¡Es la oportunidad perfecta para elevar la calidad y el estilo de tus espacios de conferencias sin comprometer tu presupuesto",
+    
     ),
     Silla(
       nombre: 'Silla para Fiestas 1',
@@ -25,7 +26,7 @@ final  listaSillas = [
         'assets/silla_3.png',
         'assets/silla_4.png',
       ],
-      descripcion: "",
+      descripcion: "La silla presenta un marco robusto de metal recubierto con un acabado plateado pulido que combina resistencia y elegancia. Las patas ligeramente curvadas no solo aportan estabilidad sino que también añaden un toque contemporáneo al diseño. El tapizado de primera calidad, disponible en una gama de colores neutros y profesionales, no solo realza la estética sino que también facilita la limpieza y el mantenimiento.",
       calificacion: "",
       promocion: "",
     ),
@@ -38,9 +39,10 @@ final  listaSillas = [
         'assets/silla_1.png',
         'assets/silla_2.png',
       ],
-      descripcion: "",
-      calificacion: "",
-      promocion: "",
+      descripcion: "La silla presenta un marco robusto de metal recubierto con un acabado plateado pulido que combina resistencia y elegancia. Las patas ligeramente curvadas no solo aportan estabilidad sino que también añaden un toque contemporáneo al diseño. El tapizado de primera calidad, disponible en una gama de colores neutros y profesionales, no solo realza la estética sino que también facilita la limpieza y el mantenimiento.",
+      calificacion: "4.5",
+      promocion: "Por tiempo limitado, al adquirir cuatro o más sillas de conferencia Harmonia Elegante, recibirás un exclusivo descuento del 20% en tu compra total. ¡Es la oportunidad perfecta para elevar la calidad y el estilo de tus espacios de conferencias sin comprometer tu presupuesto",
+    
     ),
     Silla(
       nombre: 'Silla para Grados 1',
@@ -52,9 +54,10 @@ final  listaSillas = [
         'assets/silla_2.png',
         'assets/silla_3.png',
       ],
-      descripcion: "",
-      calificacion: "",
-      promocion: "",
+      descripcion: "La silla presenta un marco robusto de metal recubierto con un acabado plateado pulido que combina resistencia y elegancia. Las patas ligeramente curvadas no solo aportan estabilidad sino que también añaden un toque contemporáneo al diseño. El tapizado de primera calidad, disponible en una gama de colores neutros y profesionales, no solo realza la estética sino que también facilita la limpieza y el mantenimiento.",
+      calificacion: "4.5",
+      promocion: "Por tiempo limitado, al adquirir cuatro o más sillas de conferencia Harmonia Elegante, recibirás un exclusivo descuento del 20% en tu compra total. ¡Es la oportunidad perfecta para elevar la calidad y el estilo de tus espacios de conferencias sin comprometer tu presupuesto",
+    
     ),
     Silla(
       nombre: 'Silla para Grados 1',
@@ -67,9 +70,10 @@ final  listaSillas = [
         'assets/silla_3.png',
         'assets/silla_4.png',
       ],
-      descripcion: "",
-      calificacion: "",
-      promocion: "",
+      descripcion: "La silla presenta un marco robusto de metal recubierto con un acabado plateado pulido que combina resistencia y elegancia. Las patas ligeramente curvadas no solo aportan estabilidad sino que también añaden un toque contemporáneo al diseño. El tapizado de primera calidad, disponible en una gama de colores neutros y profesionales, no solo realza la estética sino que también facilita la limpieza y el mantenimiento.",
+      calificacion: "4.5",
+      promocion: "Por tiempo limitado, al adquirir cuatro o más sillas de conferencia Harmonia Elegante, recibirás un exclusivo descuento del 20% en tu compra total. ¡Es la oportunidad perfecta para elevar la calidad y el estilo de tus espacios de conferencias sin comprometer tu presupuesto",
+    
     ),
     Silla(
       nombre: 'Silla para Grados 1',
@@ -82,9 +86,10 @@ final  listaSillas = [
         'assets/silla_3.png',
         'assets/silla_4.png',
       ],
-      descripcion: "",
-      calificacion: "",
-      promocion: "",
+      descripcion: "La silla presenta un marco robusto de metal recubierto con un acabado plateado pulido que combina resistencia y elegancia. Las patas ligeramente curvadas no solo aportan estabilidad sino que también añaden un toque contemporáneo al diseño. El tapizado de primera calidad, disponible en una gama de colores neutros y profesionales, no solo realza la estética sino que también facilita la limpieza y el mantenimiento.",
+      calificacion: "4.5",
+      promocion: "Por tiempo limitado, al adquirir cuatro o más sillas de conferencia Harmonia Elegante, recibirás un exclusivo descuento del 20% en tu compra total. ¡Es la oportunidad perfecta para elevar la calidad y el estilo de tus espacios de conferencias sin comprometer tu presupuesto",
+    
     ),
     
   ];
