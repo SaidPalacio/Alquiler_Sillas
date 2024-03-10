@@ -25,6 +25,7 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
   final TextEditingController pin = TextEditingController();
   final TextEditingController correo = TextEditingController();
   AuthenticationService authService = AuthenticationService();
+  AuthenticationService_2 authService_2 = AuthenticationService_2();
   bool esAdministrador = false;
 
   void verificar(usuario,pin,List<String?> valores){
@@ -162,24 +163,24 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
                           print("hola");
                           //List<String?> valores = await usuario_pin();
                           bool isLoggedIn = await authService.signIn(usuario.text, pin.text);
+                          bool isLoggedIn_2 = await authService_2.signIn_2(usuario.text, pin.text);
                           if (isLoggedIn == true) {
-                            print('Usuario y contraseña correctos');
-                            if(esAdministrador== false){
+                            print('Usuario y contraseña correctos en cliente');
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>  const cliente(),
                                 ),
                               );
-                            }else if(esAdministrador==true){
-                              Navigator.push(
+                          } else if(isLoggedIn_2 == true){
+                            print('Usuario y contraseña correctos en proveedor');
+                            Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>  const admin(),
                                 ),
                               );
-                            }
-                          } else {
+                          }else {
                             print('Usuario o contraseña incorrectos');
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(

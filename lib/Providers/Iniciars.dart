@@ -26,3 +26,30 @@ class AuthenticationService {
   }
 }
 
+class FirebaseProvider_2 {
+  final String _endpoint = "https://alquilersillas-10-default-rtdb.firebaseio.com/Proveedor.json";
+  
+  Future<Map<String, dynamic>> fetchProveedores() async {
+    final response = await http.get(Uri.parse(_endpoint));
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      return data;
+    } else {
+      throw Exception('Failed to load usuarios');
+    }
+  }
+}
+
+class AuthenticationService_2 {
+  final FirebaseProvider_2 _firebaseProvider_2 = FirebaseProvider_2();
+
+  Future<bool> signIn_2(String email, String password) async {
+    final proveedores = await _firebaseProvider_2.fetchProveedores();
+    final proveedor = proveedores.values.firstWhere((prov) => prov['correo'] == email && prov['contrasena'] == password, orElse: () => null);
+
+    return proveedor != null;
+  }
+}
+
+
+
