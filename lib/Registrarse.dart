@@ -168,6 +168,7 @@ class _RegistrarseState extends State<Registrarse> {
         idUsuario: 123,
         nombre: nombre.text,
         telefono: celular.text,
+        apellido: apellido.text
       );
 
       usuarioProvider.createUsuario(usuario);

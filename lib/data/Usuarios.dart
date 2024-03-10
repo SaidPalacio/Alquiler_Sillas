@@ -6,6 +6,7 @@ class UsuarioModel {
   final int idUsuario;
   final String nombre;
   final String telefono;
+  final String apellido;
 
   UsuarioModel({
     required this.contrasena,
@@ -14,6 +15,7 @@ class UsuarioModel {
     required this.idUsuario,
     required this.nombre,
     required this.telefono,
+    required this.apellido,
   });
 
   Map<String, dynamic> toJson() {
@@ -24,6 +26,7 @@ class UsuarioModel {
       "idUsuario": idUsuario,
       "nombre": nombre,
       "telefono": telefono,
+      "apellido": apellido,
     };
   }
 }

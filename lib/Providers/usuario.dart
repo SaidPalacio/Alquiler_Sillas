@@ -8,6 +8,7 @@ class FirebaseProvider {
       "https://alquilersillas-10-default-rtdb.firebaseio.com/Usuario.json";
 
   Map<String, dynamic>? toJson<T>(UsuarioModel object) {
+    // ignore: unnecessary_null_comparison
     if (object != null) {
       return object.toJson();
     } else {

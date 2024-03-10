@@ -1,5 +1,6 @@
 import 'package:agendar_sillas/Bienvenida.dart';
 import 'package:agendar_sillas/Cliente.dart';
+import 'package:agendar_sillas/Providers/Iniciars.dart';
 import 'package:agendar_sillas/amin.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,6 +24,7 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
   final TextEditingController usuario = TextEditingController();
   final TextEditingController pin = TextEditingController();
   final TextEditingController correo = TextEditingController();
+  AuthenticationService authService = AuthenticationService();
   bool esAdministrador = false;
 
   void verificar(usuario,pin,List<String?> valores){
@@ -158,8 +160,33 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
                       ElevatedButton(
                         onPressed: () async {
                           print("hola");
-                          List<String?> valores = await usuario_pin();
-                          verificar(usuario.text, pin.text,valores);
+                          //List<String?> valores = await usuario_pin();
+                          bool isLoggedIn = await authService.signIn(usuario.text, pin.text);
+                          if (isLoggedIn == true) {
+                            print('Usuario y contraseña correctos');
+                            if(esAdministrador== false){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>  const cliente(),
+                                ),
+                              );
+                            }else if(esAdministrador==true){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>  const admin(),
+                                ),
+                              );
+                            }
+                          } else {
+                            print('Usuario o contraseña incorrectos');
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Usuario o contraseña incorrectos"),
+                              ),
+                            );
+                          }
                         }, 
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 8, 222, 205),),

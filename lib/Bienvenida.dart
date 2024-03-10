@@ -86,7 +86,7 @@ class MyHomePage extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) =>   Registrarse()),
+                    MaterialPageRoute(builder: (context) => const Registrarse()),
                     );
                     print('REGISTRARSE');
                   },
