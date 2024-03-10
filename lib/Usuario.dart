@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 
 class Usuario extends StatelessWidget {
+  const Usuario({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +42,7 @@ class Usuario extends StatelessWidget {
               crossAxisCount: 2,
               shrinkWrap: true,
               physics: const ScrollPhysics(),
-              children: [
+              children: const [
                 // Puedes crear elementos de producto aquí
                 ProductItem(),
                 ProductItem(),
@@ -57,6 +59,8 @@ class Usuario extends StatelessWidget {
 }
 
 class ProductItem extends StatelessWidget {
+  const ProductItem({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Card(

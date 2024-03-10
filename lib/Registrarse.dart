@@ -1,35 +1,28 @@
 import 'package:agendar_sillas/Bienvenida.dart';
 import 'package:agendar_sillas/Inicio_seccion.dart';
+import 'package:agendar_sillas/Providers/usuario.dart';
+import 'package:agendar_sillas/data/Usuarios.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 
 class Registrarse extends StatefulWidget {
   const Registrarse({super.key});
-
+  
+  
   @override
   State<Registrarse> createState() => _RegistrarseState();
 }
 
 class _RegistrarseState extends State<Registrarse> {
-  final TextEditingController nombre = TextEditingController();
-  final TextEditingController apellido = TextEditingController();
-  final TextEditingController correo = TextEditingController();
-  final TextEditingController celular= TextEditingController();
-  final TextEditingController direccion = TextEditingController();
-  final TextEditingController pin = TextEditingController();
-  final TextEditingController confipin = TextEditingController();
-  _guardar(nombre,apellido,correo,celular,direccion,pin) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("nombre",nombre);
-    prefs.setString("apellido",apellido);
-    prefs.setString("correo",correo);
-    prefs.setString("celular",celular);
-    prefs.setString("direccion",direccion);
-    prefs.setString("pin",pin);
-    print("Guardo el usuario al shared_preferences");
-    
-  }
+  final usuarioProvider = FirebaseProvider(); // Usa FirebaseProvider
+  final formKey = GlobalKey<FormState>();
+  late TextEditingController nombre = TextEditingController();
+  late TextEditingController apellido = TextEditingController();
+  late TextEditingController correo = TextEditingController();
+  late TextEditingController celular= TextEditingController();
+  late TextEditingController direccion = TextEditingController();
+  late TextEditingController pin = TextEditingController();
+  late TextEditingController confipin = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,40 +38,42 @@ class _RegistrarseState extends State<Registrarse> {
             ),
             Padding(
               padding: const EdgeInsets.all(80.0),
-              child:  Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: ElevatedButton(
-                      onPressed:(){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MyHomePage() , 
+              child:  Form(
+                key: formKey,
+                child: Column( 
+                  children:[
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: ElevatedButton(
+                        onPressed:(){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MyHomePage() , 
+                            ),
+                          );
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 8, 222, 205),),
+                          fixedSize: MaterialStateProperty.all(const Size(135, 30)),
+                          shape: MaterialStateProperty.all<OutlinedBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
                           ),
-                        );
-                      },
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 8, 222, 205),),
-                        fixedSize: MaterialStateProperty.all(Size(135, 30)),
-                        shape: MaterialStateProperty.all<OutlinedBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
+                          side: MaterialStateProperty.all<BorderSide>(
+                            const BorderSide(color: Colors.black), 
                           ),
                         ),
-                        side: MaterialStateProperty.all<BorderSide>(
-                          const BorderSide(color: Colors.black), 
-                        ),
-                      ),
-                      child: const Text(
-                        "← ATRAS",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20
+                        child: const Text(
+                          "← ATRAS",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20
+                          ),
                         ),
                       ),
                     ),
-                  ),
                   const SizedBox(height: 100,),
                   TextField(
                     controller: nombre,
@@ -116,7 +111,8 @@ class _RegistrarseState extends State<Registrarse> {
                   ElevatedButton(
                     onPressed:(){ 
                       if(pin.text == confipin.text){
-                       _guardar(nombre.text,apellido.text,correo.text,celular.text,direccion.text,pin.text);  
+                        _submit();
+                        print("guardado correctamente");
                        
                        Navigator.push(
                           context,
@@ -135,7 +131,7 @@ class _RegistrarseState extends State<Registrarse> {
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 8, 222, 205),),
-                      fixedSize: MaterialStateProperty.all(Size(200, 40)),
+                      fixedSize: MaterialStateProperty.all(const Size(200, 40)),
                       shape: MaterialStateProperty.all<OutlinedBorder>(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -154,11 +150,28 @@ class _RegistrarseState extends State<Registrarse> {
                     ),
                   )
                 ],
+              )
               ),
             ),
           ],
         )
       );
+  }
+  void _submit() {
+    if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
+
+      UsuarioModel usuario = UsuarioModel(
+        contrasena: pin.text,
+        correo: correo.text,
+        direccion: direccion.text,
+        idUsuario: 123,
+        nombre: nombre.text,
+        telefono: celular.text,
+      );
+
+      usuarioProvider.createUsuario(usuario);
+    }
   }
 }
 

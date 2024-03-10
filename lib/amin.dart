@@ -14,11 +14,11 @@ class admin extends StatelessWidget {
         drawer: const draweradmi(),
         appBar: AppBar(
           backgroundColor: Colors.blue,
-          title: Text('Tienda de Sillas'),
+          title: const Text('Tienda de Sillas'),
           centerTitle: true,
           
         ),
-        body: Tipo_sillas_admin(),
+        body: const Tipo_sillas_admin(),
       ),
     );
   }

@@ -69,7 +69,7 @@ class MyHomePage extends StatelessWidget {
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 8, 222, 205)),
-                    fixedSize: MaterialStateProperty.all(Size(200, 40)),
+                    fixedSize: MaterialStateProperty.all(const Size(200, 40)),
                   ),
                   child: const Text(
                     'INICIAR SESIÓN',
@@ -86,13 +86,13 @@ class MyHomePage extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) =>  const Registrarse()),
+                    MaterialPageRoute(builder: (context) =>   Registrarse()),
                     );
                     print('REGISTRARSE');
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 8, 222, 205)),
-                    fixedSize: MaterialStateProperty.all(Size(200, 40)),
+                    fixedSize: MaterialStateProperty.all(const Size(200, 40)),
                   ),
                   child: const Text(
                     'REGISTRARSE',
@@ -115,7 +115,7 @@ class MyHomePage extends StatelessWidget {
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(null),
-                    fixedSize: MaterialStateProperty.all(Size(300, 40)),
+                    fixedSize: MaterialStateProperty.all(const Size(300, 40)),
                   ),
                   child: const Text(
                     '¿Olvidaste tu contraseña?',

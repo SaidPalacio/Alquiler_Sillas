@@ -17,7 +17,7 @@ class cliente extends StatelessWidget {
           
         ),
 
-        body: Tipo_sillas_cliente(),
+        body: const Tipo_sillas_cliente(),
       ),
     );
   }

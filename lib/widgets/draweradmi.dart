@@ -10,10 +10,10 @@ class draweradmi extends StatelessWidget {
       child: ListView(
         children: [
           const DrawerHeader(
-            child: Text('ADMINISTRADOR'),
             decoration: BoxDecoration(
               color: Colors.blue,
             ),
+            child: Text('ADMINISTRADOR'),
           ),
           ListTile(
             title: const Text('AGREGAR SILLA'),

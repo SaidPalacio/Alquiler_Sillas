@@ -13,7 +13,7 @@ class Tipo_sillas_admin extends StatelessWidget {
       children: [
         Container(
           color: Colors.blue[300],
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -21,19 +21,19 @@ class Tipo_sillas_admin extends StatelessWidget {
                 onPressed: () {
                   // Lógica para filtrar por sillas de bodas
                 },
-                child: Text('Sillas para Bodas'),
+                child: const Text('Sillas para Bodas'),
               ),
               ElevatedButton(
                 onPressed: () {
                   // Lógica para filtrar por sillas de fiestas
                 },
-                child: Text('Sillas para Fiestas'),
+                child: const Text('Sillas para Fiestas'),
               ),
               ElevatedButton(
                 onPressed: () {
                   // Lógica para filtrar por sillas de grados
                 },
-                child: Text('Sillas para Grados'),
+                child: const Text('Sillas para Grados'),
               ),
             ],
           ),

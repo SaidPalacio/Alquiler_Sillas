@@ -18,7 +18,7 @@ class DetalleSilla extends StatelessWidget {
         children: [
           Hero(
             tag: "imagen-${silla.nombre}",
-            child: Container(
+            child: SizedBox(
               height: 300,
               child: CarouselSlider(
                 options: CarouselOptions(
@@ -49,15 +49,15 @@ class DetalleSilla extends StatelessWidget {
               children: [
                 Text(
                   "nombre:${silla.nombre}",
-                  style: TextStyle(fontSize: 18),
+                  style: const TextStyle(fontSize: 18),
                 ),
                 Text(
                   "Descipción:${silla.descripcion}",
-                  style: TextStyle(fontSize: 18),
+                  style: const TextStyle(fontSize: 18),
                 ),
                 Text(
                   "precio:${silla.precio}",
-                  style: TextStyle(fontSize: 18),
+                  style: const TextStyle(fontSize: 18),
                 ),
                 ElevatedButton(
                   onPressed:(){
@@ -74,7 +74,7 @@ class DetalleSilla extends StatelessWidget {
                   );
                   
                   }, 
-                  child: Text("Alquilar"))
+                  child: const Text("Alquilar"))
               ],
             ),
           )

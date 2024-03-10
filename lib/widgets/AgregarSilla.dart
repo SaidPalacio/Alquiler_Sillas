@@ -46,7 +46,7 @@ class _agregarsillaState extends State<agregarsilla> {
                       },
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 8, 222, 205),),
-                        fixedSize: MaterialStateProperty.all(Size(135, 30)),
+                        fixedSize: MaterialStateProperty.all(const Size(135, 30)),
                         shape: MaterialStateProperty.all<OutlinedBorder>(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),
@@ -110,7 +110,7 @@ class _agregarsillaState extends State<agregarsilla> {
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 8, 222, 205),),
-                      fixedSize: MaterialStateProperty.all(Size(200, 40)),
+                      fixedSize: MaterialStateProperty.all(const Size(200, 40)),
                       shape: MaterialStateProperty.all<OutlinedBorder>(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
