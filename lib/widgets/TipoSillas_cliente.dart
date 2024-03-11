@@ -1,5 +1,4 @@
 import 'package:agendar_sillas/Providers/leer_sillas.dart';
-import 'package:agendar_sillas/data/Data.dart';
 import 'package:agendar_sillas/models/Sillas.dart';
 import 'package:agendar_sillas/widgets/SillasItem.dart';
 import 'package:flutter/material.dart';

@@ -10,13 +10,10 @@ class leersillas {
       final response = await http.get(Uri.parse(_endpoint));
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = jsonDecode(response.body);
-        if (data != null) {
-          return data.entries.map((entry) {
-            final sillaData = entry.value as Map<String, dynamic>;
-            return Silla_1.fromJson(sillaData);
-          }).toList();
-        }
-        return [];
+        return data.entries.map((entry) {
+          final sillaData = entry.value as Map<String, dynamic>;
+          return Silla_1.fromJson(sillaData);
+        }).toList();
       } else {
         throw Exception('Failed to load sillas');
       }
