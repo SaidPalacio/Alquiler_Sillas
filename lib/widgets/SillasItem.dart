@@ -3,7 +3,7 @@ import 'package:agendar_sillas/widgets/DetallesSilla.dart';
 import 'package:flutter/material.dart';
 
 class SillaItem extends StatelessWidget {
-  final Silla silla;
+  final Silla_1 silla;
 
   const SillaItem({Key? key, required this.silla}) : super(key: key);
 
@@ -24,11 +24,12 @@ class SillaItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Image.network(
-                silla.imagenUrl.first,
-                height: 150.0,
-                fit: BoxFit.cover,
-              ),
+              if (silla.imagenes.isNotEmpty)
+                Image.network(
+                  silla.imagenes.first,
+                  height: 150.0,
+                  fit: BoxFit.cover,
+                ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(

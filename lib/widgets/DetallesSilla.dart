@@ -4,7 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class DetalleSilla extends StatelessWidget {
-  final Silla silla;
+  final Silla_1 silla;
 
   const DetalleSilla({Key? key, required this.silla}) : super(key: key);
 
@@ -25,7 +25,7 @@ class DetalleSilla extends StatelessWidget {
                   height: 300.0,
                   enlargeCenterPage: true,
                 ),
-                items:silla.imagenUrl.map((url){
+                items:silla.imagenes.map((url){
                   return Builder(
                     builder: (BuildContext context) {
                       return Container(

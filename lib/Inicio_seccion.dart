@@ -143,20 +143,6 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
                         controller: pin,
                         decoration: const InputDecoration(labelText: 'Contraseña'),
                       ),
-                      const SizedBox(height: 20,),
-                      Row(
-                        children: [
-                          const Text('¿Es administrador?'),
-                          Checkbox(
-                            value: esAdministrador,
-                            onChanged: (value) {
-                              setState(() {
-                                esAdministrador = value ?? false;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
                       const SizedBox(height: 70,),
                       ElevatedButton(
                         onPressed: () async {

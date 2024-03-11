@@ -1,11 +1,34 @@
+import 'package:agendar_sillas/Providers/leer_sillas.dart';
 import 'package:agendar_sillas/data/Data.dart';
+import 'package:agendar_sillas/models/Sillas.dart';
 import 'package:agendar_sillas/widgets/SillasItem.dart';
 import 'package:flutter/material.dart';
 
-class Tipo_sillas_admin extends StatelessWidget {
+class Tipo_sillas_admin extends StatefulWidget {
   const Tipo_sillas_admin({super.key});
 
-  
+  @override
+  State<Tipo_sillas_admin> createState() => _Tipo_sillas_adminState();
+}
+
+class _Tipo_sillas_adminState extends State<Tipo_sillas_admin> {
+  leersillas leesillas = leersillas();
+  List<Silla_1> sillas = [];
+  @override
+  void initState() {
+    super.initState();
+    cargarSillasDesdeFirebase();
+  }
+  Future<void> cargarSillasDesdeFirebase() async {
+    try {
+      List<Silla_1> sillasDesdeFirebase = await leesillas.fetchSillas();
+      setState(() {
+        sillas = sillasDesdeFirebase;
+      });
+    } catch (e) {
+      print('Error al cargar las sillas desde Firebase: $e');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -43,9 +66,9 @@ class Tipo_sillas_admin extends StatelessWidget {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
             ),
-            itemCount: listaSillas.length,
+            itemCount: sillas.length,
             itemBuilder: (context, index) {
-              return SillaItem(silla: listaSillas[index]);
+              return SillaItem(silla: sillas[index]);
             },
           ),
         ),
