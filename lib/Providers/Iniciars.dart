@@ -19,7 +19,7 @@ class FirebaseProvider {
 class AuthenticationService {
   final FirebaseProvider _firebaseProvider = FirebaseProvider();
 
-  Future<bool> signIn(String email, String password,String nombreusuario) async {
+  Future<bool> signIn(String email, String password,String nombreusuario,int idusuario) async {
     final usuarios = await _firebaseProvider.fetchUsuarios();
     final usuario = usuarios.values.firstWhere((user) => user['correo'] == email && user['contrasena'] == password, orElse: () => null);
     if (usuario != null) {
@@ -29,6 +29,7 @@ class AuthenticationService {
       prefs.setString('correo', email);
       prefs.setString('pin', password);
       prefs.setString('nombre', nombreusuario);
+      prefs.setInt('idusuario', idusuario);
     }
     
     return usuario != null;
@@ -52,7 +53,7 @@ class FirebaseProvider_2 {
 class AuthenticationService_2 {
   final FirebaseProvider_2 _firebaseProvider_2 = FirebaseProvider_2();
 
-  Future<bool> signIn_2(String email, String password,String nombreproveedor) async {
+  Future<bool> signIn_2(String email, String password,String nombreproveedor,int idusuario) async {
     final proveedores = await _firebaseProvider_2.fetchProveedores();
     final proveedor = proveedores.values.firstWhere((prov) => prov['correo'] == email && prov['contrasena'] == password, orElse: () => null);
 
@@ -63,6 +64,7 @@ class AuthenticationService_2 {
       prefs.setString('correo', email);
       prefs.setString('pin', password);
       prefs.setString('nombre', nombreproveedor);
+      prefs.setInt('idusuario', idusuario);
     }
     return proveedor != null;
   }

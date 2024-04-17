@@ -1,9 +1,35 @@
+import 'package:agendar_sillas/Providers/leer_reservas.dart';
+import 'package:agendar_sillas/models/reserva_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CartItemSamples extends StatelessWidget {
+class CartItemSamples extends StatefulWidget {
   const CartItemSamples({super.key});
 
+  @override
+  State<CartItemSamples> createState() => _CartItemSamplesState();
+}
+
+class _CartItemSamplesState extends State<CartItemSamples> {
+  leerreserva leerreservas = leerreserva();
+  List<reserva> reservalist = [];
+  @override
+  void initState() {
+    super.initState();
+    cargarreservadesdelabasededatos();
+  }
+
+  Future<void> cargarreservadesdelabasededatos() async {
+    try {
+      List<reserva> reservadesdelabasededatos =
+          await leerreservas.fetchreserva();
+      setState(() {
+        reservalist = reservadesdelabasededatos;
+      });
+    } catch (e) {
+      print('Error al cargar las categorias desde Firebase: $e');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Column(

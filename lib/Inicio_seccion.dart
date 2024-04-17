@@ -124,15 +124,15 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
   }
   return nombreUsuario;
   }
-  String obtenerNombreUsuarioPorCorreo_2(String correo, List<UsuarioModel> listaUsuarios) {
-  String nombreUsuario = "";
+  int obteneridusuarioporcorreo(String correo, List<UsuarioModel> listaUsuarios) {
+  int idusuario = 0;
   for (UsuarioModel usuario in listaUsuarios) {
     if (usuario.correo == correo) {
-      nombreUsuario = usuario.nombre;
+      idusuario = usuario.idUsuario;
       break; // Salir del bucle una vez que se encuentra el usuario
     }
   }
-  return nombreUsuario;
+  return idusuario;
   }
 
   Future<void> borrardatos() async {
@@ -265,16 +265,20 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
                       ElevatedButton(
                         onPressed: () async {
                           String nombreusuario= "";
+                          int idusuario=0;
                           nombreusuario= obtenerNombreUsuarioPorCorreo(usuario.text, usuariosList);
                           if(nombreusuario == ""){
-                            nombreusuario = obtenerNombreUsuarioPorCorreo_2(usuario.text, proveeList);
-
+                            nombreusuario = obtenerNombreUsuarioPorCorreo(usuario.text, proveeList);
+                          }
+                          idusuario= obteneridusuarioporcorreo(usuario.text, usuariosList);
+                          if(idusuario == 0){
+                            idusuario = obteneridusuarioporcorreo(usuario.text, proveeList);
                           }
                           print("hola");
                           //List<String?> valores = await usuario_pin();
                           bool isLoggedIn =
-                              await authService.signIn(usuario.text, pin.text,nombreusuario);
-                          bool isLoggedIn_2 = await authService_2.signIn_2(usuario.text, pin.text, nombreusuario);
+                              await authService.signIn(usuario.text, pin.text,nombreusuario,idusuario);
+                          bool isLoggedIn_2 = await authService_2.signIn_2(usuario.text, pin.text, nombreusuario,idusuario);
                           if (isLoggedIn == true) {
                             print('Usuario y contraseña correctos en cliente');
                             Navigator.push(

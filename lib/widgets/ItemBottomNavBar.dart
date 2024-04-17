@@ -1,14 +1,17 @@
-import 'package:agendar_sillas/Providers/Agregar_carrito.dart';
 import 'package:agendar_sillas/models/Sillas.dart';
+import 'package:agendar_sillas/models/reserva_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../Providers/guardar_reserva.dart';
 
 class ItemBottomNavBar extends StatefulWidget {
   final int cantidad;
   final double precio;
   final int cantdias;
   final Silla_1 silla;
+  
   
   
   const ItemBottomNavBar({Key? key, required this.cantidad, required this.precio,required this.cantdias,required this.silla}) : super(key: key);
@@ -38,14 +41,14 @@ double calcularPrecioTotal(int cantidad, double precioUnitario, int cantidadDias
   return precio;
 }
 class _ItemBottomNavBarState extends State<ItemBottomNavBar> {
-  
+  final reserva_provi _firebaseProvider = reserva_provi();
 
-Future<String> obtenercorreo() async {
+Future<int> obtenerid() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  return prefs.getString("correo") ?? ""; // Devuelve el valor asociado a la clave, o una cadena vacía si no se encuentra ningún valor
+  return prefs.getInt("idusuario") ?? 0; // Devuelve el valor asociado a la clave, o una cadena vacía si no se encuentra ningún valor
 }
 
-  final agregarcarrito = Guardarcarrito();
+  //final agregarcarrito = Guardarcarrito();
   @override
   Widget build(BuildContext context) {
     double precioTotal = calcularPrecioTotal(widget.cantidad, widget.precio, widget.cantdias);
@@ -108,19 +111,21 @@ Future<String> obtenercorreo() async {
     Future<void> _guardarSilla() async {
     try {
       // Crear una instancia de la silla
-      Silla_1 nuevaSilla = Silla_1(
+      int idusuario = await obtenerid();
+      reserva nuevareserva = reserva(
         nombre: widget.silla.nombre,
         categoria: widget.silla.categoria,
         precio: widget.silla.precio,
         descripcion: widget.silla.descripcion,
         promocion: widget.silla.promocion,
         cantidad: widget.silla.cantidad,
-        id: widget.silla.id,
+        idsilla: widget.silla.id,
+        idusuario: idusuario,
         imagenes: widget.silla.imagenes,
       );
-      String correo =obtenercorreo().toString();
+      //String correo =obtenercorreo().toString();
       // Llamar al método para guardar la silla en Firebase
-      await agregarcarrito.agregarSillaAlCarrito(correo,nuevaSilla);
+      await _firebaseProvider.guadar_reserva(nuevareserva);
 
       // Mostrar mensaje de éxito
       showDialog(
