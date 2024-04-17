@@ -159,10 +159,10 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset(
+          /*Image.asset(
             'fondo_silla_2.png', 
             fit: BoxFit.cover,
-          ),
+          ),*/
           Column(
             children: [
               const SizedBox(height: 40),
