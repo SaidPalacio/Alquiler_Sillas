@@ -1,12 +1,5 @@
-import 'package:agendar_sillas/Bienvenida.dart';
 import 'package:agendar_sillas/Pages/Cliente.dart';
-import 'package:agendar_sillas/Inicio_seccion.dart';
-import 'package:agendar_sillas/Pages/amin.dart';
-import 'package:agendar_sillas/models/Sillas.dart';
-import 'package:agendar_sillas/widgets/DetallesSilla.dart';
-import 'package:agendar_sillas/widgets/categoria.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());

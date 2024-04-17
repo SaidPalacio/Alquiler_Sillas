@@ -1,6 +1,4 @@
-import 'package:agendar_sillas/Pages/carrito_pagina.dart';
 import 'package:flutter/material.dart';
-import 'package:badges/badges.dart' as badges;
 
 class HomeAppBar_2 extends StatelessWidget {
   const HomeAppBar_2({super.key});

@@ -1,7 +1,5 @@
-import 'package:agendar_sillas/Bienvenida.dart';
 import 'package:agendar_sillas/Pages/Cliente.dart';
 import 'package:agendar_sillas/Providers/Iniciars.dart';
-import 'package:agendar_sillas/Pages/amin.dart';
 import 'package:agendar_sillas/Providers/leer_proveedores.dart';
 import 'package:agendar_sillas/Registrarse.dart';
 import 'package:agendar_sillas/models/Usuarios.dart';

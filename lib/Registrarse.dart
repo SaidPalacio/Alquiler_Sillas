@@ -1,6 +1,4 @@
 import 'dart:math';
-
-import 'package:agendar_sillas/Bienvenida.dart';
 import 'package:agendar_sillas/Inicio_seccion.dart';
 import 'package:agendar_sillas/Providers/usuario.dart';
 import 'package:agendar_sillas/models/Usuarios.dart';
