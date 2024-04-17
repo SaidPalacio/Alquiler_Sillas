@@ -1,5 +1,7 @@
 import 'package:agendar_sillas/Providers/leer_sillas.dart';
+import 'package:agendar_sillas/delegates/search_sillas_delegate.dart';
 import 'package:agendar_sillas/models/Sillas.dart';
+import 'package:agendar_sillas/widgets/Categoriewidget.dart';
 import 'package:agendar_sillas/widgets/SillasItem.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +20,7 @@ class _Tipo_sillas_adminState extends State<Tipo_sillas_admin> {
     super.initState();
     cargarSillasDesdeFirebase();
   }
+
   Future<void> cargarSillasDesdeFirebase() async {
     try {
       List<Silla_1> sillasDesdeFirebase = await leesillas.fetchSillas();
@@ -28,50 +31,102 @@ class _Tipo_sillas_adminState extends State<Tipo_sillas_admin> {
       print('Error al cargar las sillas desde Firebase: $e');
     }
   }
+ 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
+    return Container(
+      // Temporal
+      //height: 500,
+      padding: EdgeInsets.only(top: 15),
+      decoration: const BoxDecoration(
+        color: Color(0xFFEDECF2),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(35),
+          topRight: Radius.circular(35),
+        ),
+      ),
+      child: Column(children: [
         Container(
-          color: Colors.blue[300],
-          padding: const EdgeInsets.all(16.0),
+          margin: EdgeInsets.symmetric(horizontal: 15),
+          padding: EdgeInsets.symmetric(horizontal: 15),
+          height: 50,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(30),
+          ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              ElevatedButton(
+              IconButton(
                 onPressed: () {
-                  // Lógica para filtrar por sillas de bodas
+                  showSearch(
+                    context: context,
+                    delegate: SearchSillasDelegate(listaSillas: sillas),
+                  );
                 },
-                child: const Text('Sillas para Bodas'),
+                icon: Icon(
+                  Icons.search, 
+                  color: Colors.grey, 
+                ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  // Lógica para filtrar por sillas de fiestas
-                },
-                child: const Text('Sillas para Fiestas'),
+              SizedBox(
+                width:10
+              ), 
+              Expanded(
+                child: TextFormField(
+                  onTap: () {
+                    showSearch(
+                      context: context,
+                      delegate: SearchSillasDelegate(listaSillas: sillas),
+                    );
+                  },
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "Buscar silla", 
+                    hintStyle: TextStyle(
+                      color: Colors.grey), 
+                  ),
+                ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  // Lógica para filtrar por sillas de grados
-                },
-                child: const Text('Sillas para Grados'),
-              ),
+              Spacer(),
             ],
           ),
         ),
-        Expanded(
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
+        // categoria
+        Container(
+          alignment: Alignment.centerLeft,
+          margin: const EdgeInsets.symmetric(
+            vertical: 20,
+            horizontal: 10,
+          ),
+          child: const Text(
+            "Categories",
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF4C53A5),
             ),
-            itemCount: sillas.length,
-            itemBuilder: (context, index) {
-              return SillaItem(silla: sillas[index]);
-            },
           ),
         ),
-      ],
+        //categorias widget
+        Categoriewidget(),
+
+        //items
+        Container(
+          alignment: Alignment.centerLeft,
+          margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+          child: const Text(
+            "Best Selling",
+            style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF4C53A5),
+            ),
+          ),
+        ),
+        //Items Widget
+        //ItemsWidget(),
+        SillaItem(),
+      ]),
     );
   }
 }

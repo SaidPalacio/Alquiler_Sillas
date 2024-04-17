@@ -28,6 +28,8 @@ class Silla_1 {
   double precio;
   String descripcion;
   String promocion;
+  int cantidad;
+  int id;
   List<String> imagenes;
 
   Silla_1({
@@ -36,6 +38,8 @@ class Silla_1 {
     required this.precio,
     required this.descripcion,
     required this.promocion,
+    required this.cantidad,
+    required this.id,
     required this.imagenes,
   });
 
@@ -46,6 +50,8 @@ class Silla_1 {
       'precio': precio,
       'descripcion': descripcion,
       'promocion': promocion,
+      'cantidad':cantidad,
+      'id':id,
       'imagenes': imagenes,
     };
   }
@@ -56,6 +62,8 @@ class Silla_1 {
       precio: (json['precio'] ?? 0.0).toDouble(),
       descripcion: json['descripcion'] ?? '',
       promocion: json['promocion'] ?? '',
+      cantidad: json['cantidad'] ?? 0,
+      id: json['cantidad'] ?? 0,
       imagenes: List<String>.from(json['imagenes'] ?? []),
     );
   }

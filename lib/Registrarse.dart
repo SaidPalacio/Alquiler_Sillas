@@ -1,7 +1,9 @@
+import 'dart:math';
+
 import 'package:agendar_sillas/Bienvenida.dart';
 import 'package:agendar_sillas/Inicio_seccion.dart';
 import 'package:agendar_sillas/Providers/usuario.dart';
-import 'package:agendar_sillas/data/Usuarios.dart';
+import 'package:agendar_sillas/models/Usuarios.dart';
 import 'package:flutter/material.dart';
 
 
@@ -23,6 +25,7 @@ class _RegistrarseState extends State<Registrarse> {
   late TextEditingController direccion = TextEditingController();
   late TextEditingController pin = TextEditingController();
   late TextEditingController confipin = TextEditingController();
+  List<String> carrito =[""];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,16 +49,12 @@ class _RegistrarseState extends State<Registrarse> {
                       alignment: Alignment.topLeft,
                       child: ElevatedButton(
                         onPressed:(){
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const MyHomePage() , 
-                            ),
-                          );
+                          Navigator.pop(context);
+                      
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 8, 222, 205),),
-                          fixedSize: MaterialStateProperty.all(const Size(135, 30)),
+                          fixedSize: MaterialStateProperty.all(const Size(135, 40)),
                           shape: MaterialStateProperty.all<OutlinedBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -160,15 +159,16 @@ class _RegistrarseState extends State<Registrarse> {
   void _submit() {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
-
+      Random random = Random();
+      int idUsuario = random.nextInt(1000000)+1;
       UsuarioModel usuario = UsuarioModel(
         contrasena: pin.text,
         correo: correo.text,
         direccion: direccion.text,
-        idUsuario: 123,
+        idUsuario: idUsuario,
         nombre: nombre.text,
         telefono: celular.text,
-        apellido: apellido.text
+        apellido: apellido.text,
       );
 
       usuarioProvider.createUsuario(usuario);

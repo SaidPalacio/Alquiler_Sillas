@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:agendar_sillas/data/Usuarios.dart';
+import 'package:agendar_sillas/models/Usuarios.dart';
 import 'package:http/http.dart' as http;
  // Asegúrate de importar la clase Usuario
 

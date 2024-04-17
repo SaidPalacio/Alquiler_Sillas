@@ -4,7 +4,7 @@ class UsuarioModel {
   final String correo;
   final String direccion;
   final int idUsuario;
-  final String nombre;
+  late final String nombre;
   final String telefono;
   final String apellido;
 
@@ -28,6 +28,17 @@ class UsuarioModel {
       "telefono": telefono,
       "apellido": apellido,
     };
+  }
+  factory UsuarioModel.fromJson(Map<String, dynamic> json) {
+    return UsuarioModel(
+      contrasena: json['contrasena'] ?? '',
+      correo: json['correo'] ?? '',
+      direccion: json['direccion'] ?? '',
+      idUsuario: json['idusuario'] ?? 0,
+      nombre: json['nombre'] ?? '',
+      telefono: json['telefono'] ?? '',
+      apellido: json['apellido'] ?? '',
+    );
   }
 }
 

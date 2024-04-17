@@ -1,26 +1,19 @@
-import 'dart:math';
-
-import 'package:agendar_sillas/Providers/guardar_sillas.dart';
+import 'package:agendar_sillas/Providers/Guardar_categoria.dart';
 import 'package:agendar_sillas/Pages/amin.dart';
-import 'package:agendar_sillas/models/Sillas.dart';
+import 'package:agendar_sillas/models/categoria_model.dart';
 import 'package:flutter/material.dart';
 
 
-class agregarsilla extends StatefulWidget {
-  const  agregarsilla({super.key});
+class categoria extends StatefulWidget {
+  const  categoria({super.key});
 
   @override
-  State<agregarsilla> createState() => _agregarsillaState();
+  State<categoria> createState() => _categoriaState();
 }
 
-class _agregarsillaState extends State<agregarsilla> {
-  final FirebaseProvider_3 _firebaseProvider = FirebaseProvider_3();
+class _categoriaState extends State<categoria> {
+  final categoria_provider _firebaseProvider = categoria_provider();
   final TextEditingController _nombre = TextEditingController();
-  final TextEditingController _categoria = TextEditingController();
-  final TextEditingController _precio = TextEditingController();
-  final TextEditingController _descripcion= TextEditingController();
-  final TextEditingController _promocion = TextEditingController();
-  final TextEditingController _cantidad = TextEditingController();
   final TextEditingController _imagenesController = TextEditingController();
   bool mensaje=false;
   @override
@@ -44,7 +37,12 @@ class _agregarsillaState extends State<agregarsilla> {
                     alignment: Alignment.topLeft,
                     child: ElevatedButton(
                       onPressed:(){
-                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const admin() , 
+                          ),
+                        );
                       },
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 8, 222, 205),),
@@ -73,28 +71,6 @@ class _agregarsillaState extends State<agregarsilla> {
                     decoration: const InputDecoration(labelText: 'Nombres'),
                   ),
                   TextField(
-                    controller: _categoria,
-                    decoration: const InputDecoration(labelText: 'Categoria'),
-                  ),
-                  TextField(
-                    controller: _precio,
-                    decoration: const InputDecoration(labelText: 'Precio'),
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  TextField(
-                    controller: _descripcion,
-                    decoration: const InputDecoration(labelText: 'Descripción'),
-                    keyboardType: TextInputType.phone,
-                  ),
-                  TextField(
-                    controller: _promocion,
-                    decoration: const InputDecoration(labelText: 'Promoción'),
-                  ),
-                  TextField(
-                    controller: _cantidad,
-                    decoration: const InputDecoration(labelText: 'cantidad'),
-                  ),
-                  TextField(
                     controller: _imagenesController,
                     decoration: InputDecoration(labelText: 'Imágenes (separadas por coma)'),
                   ),
@@ -105,7 +81,7 @@ class _agregarsillaState extends State<agregarsilla> {
                       if(mensaje==false){
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text("SILLA AGREGADA"),
+                            content: Text("categoria AGREGADA"),
                           ),
                         );
                         mensaje=true;
@@ -132,7 +108,7 @@ class _agregarsillaState extends State<agregarsilla> {
                       ),
                     ),
                     child: const Text(
-                      "AGREGAR SILLA",
+                      "AGREGAR categoria",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 20
@@ -150,37 +126,24 @@ class _agregarsillaState extends State<agregarsilla> {
     try {
       // Parsear la información de la silla
       String nombre = _nombre.text;
-      String categoria = _categoria.text;
-      double precio = double.parse(_precio.text);
-      String descripcion = _descripcion.text;
-      String promocion = _promocion.text;
-      int cantidad = int.parse(_cantidad.text); //int.parse(_cantidad.text);
       List<String> imagenes = _imagenesController.text.split(',');
-      Random random = Random();
-      int id = random.nextInt(1000000)+1;
 
       // Crear una instancia de la silla
-      Silla_1 nuevaSilla = Silla_1(
+      categorias nuevacategoria = categorias(
         nombre: nombre,
-        categoria: categoria,
-        precio: precio,
-        descripcion: descripcion,
-        promocion: promocion,
-        cantidad: cantidad,
-        id: id,
         imagenes: imagenes,
       );
 
       // Llamar al método para guardar la silla en Firebase
-      await _firebaseProvider.guardarSilla(nuevaSilla);
+      await _firebaseProvider.guardarSilla(nuevacategoria);
 
       // Mostrar mensaje de éxito
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Silla Guardada'),
-            content: Text('La silla ha sido guardada exitosamente en Firebase.'),
+            title: Text('categoria Guardada'),
+            content: Text('La categoria ha sido guardada exitosamente en Firebase.'),
             actions: [
               TextButton(
                 onPressed: () {
@@ -198,8 +161,8 @@ class _agregarsillaState extends State<agregarsilla> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Error al Guardar Silla'),
-            content: Text('Hubo un problema al guardar la silla en Firebase. Por favor, inténtalo de nuevo.'),
+            title: Text('Error al Guardar categoria'),
+            content: Text('Hubo un problema al guardar la categoria en Firebase. Por favor, inténtalo de nuevo.'),
             actions: [
               TextButton(
                 onPressed: () {

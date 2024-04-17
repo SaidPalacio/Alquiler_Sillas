@@ -1,52 +1,137 @@
+import 'package:agendar_sillas/Providers/leer_sillas.dart';
 import 'package:agendar_sillas/models/Sillas.dart';
 import 'package:agendar_sillas/widgets/DetallesSilla.dart';
 import 'package:flutter/material.dart';
 
-class SillaItem extends StatelessWidget {
-  final Silla_1 silla;
+class SillaItem extends StatefulWidget {
+  @override
+  State<SillaItem> createState() => _SillaItemState();
+}
 
-  const SillaItem({Key? key, required this.silla}) : super(key: key);
+class _SillaItemState extends State<SillaItem> {
+  leersillas leesillas = leersillas();
+  List<Silla_1> sillas = [];
+
+  @override
+  void initState() {
+    super.initState();
+    cargarSillasDesdeFirebase();
+  }
+
+  Future<void> cargarSillasDesdeFirebase() async {
+    try {
+      List<Silla_1> sillasDesdeFirebase = await leesillas.fetchSillas();
+      setState(() {
+        sillas = sillasDesdeFirebase;
+      });
+    } catch (e) {
+      print('Error al cargar las sillas desde Firebase: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: (){
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context)=>DetalleSilla(silla: silla)
+    return GridView.count(
+      childAspectRatio: MediaQuery.of(context).size.width / (MediaQuery.of(context).size.width > 600 ? 4.4 : 2.2) / 300, 
+      physics: NeverScrollableScrollPhysics(), 
+      crossAxisCount: MediaQuery.of(context).size.width > 600 ? 4 : 2, 
+      shrinkWrap: true,
+      padding: EdgeInsets.symmetric(horizontal: 8),
+      mainAxisSpacing: 16,
+      crossAxisSpacing: 16,
+      children: sillas.map((silla) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
           ),
-        );
-      },
-      child: Card(
-        child: MouseRegion(
-          cursor: SystemMouseCursors.click,
+          padding: EdgeInsets.all(12),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (silla.imagenes.isNotEmpty)
-                Image.network(
-                  silla.imagenes.first,
-                  height: 150.0,
-                  fit: BoxFit.cover,
-                ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  silla.nombre,
-                  style: const TextStyle(fontSize: 18),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: Color(0xFF4C53A5),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text(
+                      "-50%",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  /*Icon(
+                    Icons.favorite_border,
+                    color: Colors.red,
+                  )*/
+                ],
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => DetalleSilla(silla: silla)),
+                  );
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: 150,
+                  child: Image.asset(
+                    silla.imagenes.first,
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "precio: ${silla.precio}",
+              SizedBox(height: 8),
+              Text(
+                silla.nombre,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Color(0xFF4C53A5),
+                  fontWeight: FontWeight.bold,
                 ),
+              ),
+              SizedBox(height: 4),
+              Text(
+                silla.descripcion,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color(0xFF4C53A5),
+                ),
+              ),
+              SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "\$${silla.precio}",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF4C53A5),
+                    ),
+                  ),
+                  Icon(
+                    Icons.shopping_cart_checkout,
+                    color: Color(0xFF4C53A5),
+                  )
+                ],
               ),
             ],
           ),
-        ),
-      ),
+        );
+      }).toList(),
     );
   }
 }
