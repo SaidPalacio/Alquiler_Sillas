@@ -1,7 +1,8 @@
-import 'package:agendar_sillas/Providers/leer_reservas.dart';
+import 'package:agendar_sillas/Providers/reserva_provider.dart';
 import 'package:agendar_sillas/models/reserva_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CartItemSamples extends StatefulWidget {
   const CartItemSamples({super.key});
@@ -11,31 +12,13 @@ class CartItemSamples extends StatefulWidget {
 }
 
 class _CartItemSamplesState extends State<CartItemSamples> {
-  leerreserva leerreservas = leerreserva();
-  List<reserva> reservalist = [];
-  @override
-  void initState() {
-    super.initState();
-    cargarreservadesdelabasededatos();
-  }
-
-  Future<void> cargarreservadesdelabasededatos() async {
-    try {
-      List<reserva> reservadesdelabasededatos =
-          await leerreservas.fetchreserva();
-      setState(() {
-        reservalist = reservadesdelabasededatos;
-      });
-    } catch (e) {
-      print('Error al cargar las categorias desde Firebase: $e');
-    }
-  }
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        for(int i=1; i<4;i++)
-        Container(
+    final reservasProvider = Provider.of<ReservaProvider>(context);
+    final reservas = reservasProvider.reservas;
+    return Column(//posible Grilview
+      children: reservas.map((reservas) {
+        return Container(
           height: 110,
           margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           padding: EdgeInsets.all(10),
@@ -53,7 +36,9 @@ class _CartItemSamplesState extends State<CartItemSamples> {
               height: 70,
               width: 70,
               margin: EdgeInsets.only(right: 15 ),
-              child: Image.asset("assets/silla_2.png"),
+              child: Image.asset(
+                reservas.imagenes.first,
+              ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 10),
@@ -62,7 +47,7 @@ class _CartItemSamplesState extends State<CartItemSamples> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Product Titlle",
+                    reservas.nombre,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -70,7 +55,7 @@ class _CartItemSamplesState extends State<CartItemSamples> {
                     ),
                   ),
                   Text(
-                    "\$55",
+                    reservas.precio.toString(),
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -113,7 +98,7 @@ class _CartItemSamplesState extends State<CartItemSamples> {
                         Container(
                           margin: EdgeInsets.symmetric(horizontal: 10),
                           child: Text(
-                            "01",
+                            reservas.cantidad.toString(),
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -142,12 +127,11 @@ class _CartItemSamplesState extends State<CartItemSamples> {
                       ],
                     )
                   ],
-
                 )
               ), 
           ]),
-        )
-      ],
+        );
+      }).toList(),
     );
   }
 }

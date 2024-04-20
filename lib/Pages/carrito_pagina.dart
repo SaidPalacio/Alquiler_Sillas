@@ -26,6 +26,7 @@ class CartPage extends StatelessWidget {
               ),
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 CartItemSamples(),
                 Container(

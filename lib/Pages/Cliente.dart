@@ -1,13 +1,19 @@
 import 'package:agendar_sillas/Drawers/draweradmi.dart';
+import 'package:agendar_sillas/Providers/Usuarios_provider.dart';
+import 'package:agendar_sillas/Providers/categorias_provider.dart';
+import 'package:agendar_sillas/Providers/proveedores_provider.dart';
+import 'package:agendar_sillas/Providers/reserva_provider.dart';
 import 'package:agendar_sillas/widgets/TipoSillas_cliente.dart';
 import 'package:agendar_sillas/Drawers/Drawer_sin_acceso_cliente.dart';
 //import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 //import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:agendar_sillas/widgets/HomeAppBar.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../Drawers/Drawer_con_acceso_cliente.dart'; // Asegúrate de importar el archivo correcto
+import '../Drawers/Drawer_con_acceso_cliente.dart';
+import '../Providers/sillas_provider.dart'; // Asegúrate de importar el archivo correcto
 
 Future<List<bool>> recuperardatos() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -27,7 +33,16 @@ class cliente extends StatefulWidget {
 
 class _clienteState extends State<cliente> {
   Future<List<bool>> ingreso = recuperardatos();
-
+  @override
+  void initState() {
+    super.initState();
+    // Cargar las sillas al iniciar el widget cliente
+    Provider.of<SillasProvider>(context, listen: false).fetchSillas();
+    Provider.of<CategoriaProvider >(context,listen:false).fetchCategorias();
+    Provider.of<UsuariosProvider >(context,listen:false).fetchUsuarios();
+    Provider.of<ProveedoresProvider >(context,listen:false).fetchproveedores();
+    Provider.of<ReservaProvider >(context,listen:false).fetchreservas();
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

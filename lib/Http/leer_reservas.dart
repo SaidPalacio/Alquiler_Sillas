@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import '../models/reserva_model.dart';
 
 class leerreserva {
-  final String _endpoint = "https://alquilersillas-10-default-rtdb.firebaseio.com/Categorias.json";
+  final String _endpoint = "https://alquilersillas-10-default-rtdb.firebaseio.com/Reserva.json";
   
   Future<List<reserva>> fetchreserva() async {
     try {

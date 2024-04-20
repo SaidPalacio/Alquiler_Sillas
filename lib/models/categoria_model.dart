@@ -1,8 +1,8 @@
-class categorias {
+class categoria {
   String nombre;
   List<String> imagenes;
 
-  categorias({
+  categoria({
     required this.nombre,
     required this.imagenes,
   });
@@ -13,8 +13,8 @@ class categorias {
       'imagenes': imagenes,
     };
   }
-  factory categorias.fromJson(Map<String, dynamic> json) {
-    return categorias(
+  factory categoria.fromJson(Map<String, dynamic> json) {
+    return categoria(
       nombre: json['nombre'] ?? '',
       imagenes: List<String>.from(json['imagenes'] ?? []),
     );

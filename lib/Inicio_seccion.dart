@@ -1,11 +1,12 @@
 import 'package:agendar_sillas/Pages/Cliente.dart';
-import 'package:agendar_sillas/Providers/Iniciars.dart';
-import 'package:agendar_sillas/Providers/leer_proveedores.dart';
+import 'package:agendar_sillas/Http/Iniciars.dart';
+import 'package:agendar_sillas/Providers/Usuarios_provider.dart';
+import 'package:agendar_sillas/Providers/proveedores_provider.dart';
 import 'package:agendar_sillas/Registrarse.dart';
 import 'package:agendar_sillas/models/Usuarios.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'Providers/leer_usuarios_clientes.dart';
 
 
 class Inicio_seccion extends StatefulWidget {
@@ -34,10 +35,6 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
   AuthenticationService authService = AuthenticationService();
   AuthenticationService_2 authService_2 = AuthenticationService_2();
   bool esAdministrador = false;
-  leerusuarios leeusuarios = leerusuarios();
-  List<UsuarioModel> usuariosList = [];
-  leerproveedores leerprovee = leerproveedores();
-  List<UsuarioModel> proveeList = [];
 
   /* void verificar(usuario,pin,List<String?> valores){
     String? correoconfi = valores[0];
@@ -74,8 +71,6 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
   @override
   void initState() {
     super.initState();
-    cargarDatosusuarios();
-    cargarDatosprovee();
     //checkUserLoggedIn();
     //borrardatos();
     //recuperardatos();
@@ -89,30 +84,7 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
       print('$key: ${prefs.get(key)}');
     }
   }
-  Future<void> cargarDatosusuarios() async {
-    try {
-      // Cargar usuarios desde Firebase
-      List<UsuarioModel> usuariosDesdeFirebase = await leeusuarios.fetchUsuario();
-      setState(() {
-        usuariosList = usuariosDesdeFirebase;
-      });
-
-    } catch (e) {
-      print('Error al cargar los datos: $e');
-    }
-  }
-  Future<void> cargarDatosprovee() async {
-    try {
-      // Cargar usuarios desde Firebase
-      List<UsuarioModel> proveeDesdeFirebase = await leerprovee.fetchprovee();
-      setState(() {
-        proveeList = proveeDesdeFirebase;
-      });
-
-    } catch (e) {
-      print('Error al cargar los datos: $e');
-    }
-  }
+  
 
   String obtenerNombreUsuarioPorCorreo(String correo, List<UsuarioModel> listaUsuarios) {
   String nombreUsuario = "";
@@ -135,26 +107,31 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
   return idusuario;
   }
 
-  Future<void> borrardatos() async {
+  /*Future<void> borrardatos() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove('pin');
     prefs.remove('correo');
     prefs.remove('isLoggedIn');
     
     //prefs.clear();
-  }
+  }*/
 
-  void checkUserLoggedIn() async {
+  /*void checkUserLoggedIn() async {
     final isLoggedIn = await isUserLoggedIn();
     if (isLoggedIn) {
       // Si el usuario ya está autenticado, navegar a la página correspondiente
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => cliente()));
     }
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
+    final usuariosProvider = Provider.of<UsuariosProvider>(context);
+    final usuarios = usuariosProvider.usuarios;
+    final proveedoresProvider = Provider.of<ProveedoresProvider>(context);
+    final proveedores = proveedoresProvider.proveedores;
+
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -266,13 +243,13 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
                         onPressed: () async {
                           String nombreusuario= "";
                           int idusuario=0;
-                          nombreusuario= obtenerNombreUsuarioPorCorreo(usuario.text, usuariosList);
+                          nombreusuario= obtenerNombreUsuarioPorCorreo(usuario.text, usuarios);
                           if(nombreusuario == ""){
-                            nombreusuario = obtenerNombreUsuarioPorCorreo(usuario.text, proveeList);
+                            nombreusuario = obtenerNombreUsuarioPorCorreo(usuario.text, proveedores);
                           }
-                          idusuario= obteneridusuarioporcorreo(usuario.text, usuariosList);
+                          idusuario= obteneridusuarioporcorreo(usuario.text, usuarios);
                           if(idusuario == 0){
-                            idusuario = obteneridusuarioporcorreo(usuario.text, proveeList);
+                            idusuario = obteneridusuarioporcorreo(usuario.text, proveedores);
                           }
                           print("hola");
                           //List<String?> valores = await usuario_pin();

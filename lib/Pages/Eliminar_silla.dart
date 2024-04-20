@@ -1,38 +1,15 @@
-import 'package:agendar_sillas/models/Sillas.dart';
 import 'package:agendar_sillas/widgets/DetallesSilla.dart';
 import 'package:flutter/material.dart';
-
-import '../Providers/leer_sillas.dart';
+import 'package:provider/provider.dart';
+import '../Providers/sillas_provider.dart';
 import '../widgets/HomeAppBar_2.dart';
 
-class Eliminar_Silla extends StatefulWidget {
-  @override
-  State<Eliminar_Silla> createState() => _Eliminar_SillaState();
-}
-
-class _Eliminar_SillaState extends State<Eliminar_Silla> {
-  leersillas leesillas = leersillas();
-  List<Silla_1> sillas = [];
-
-  @override
-  void initState() {
-    super.initState();
-    cargarSillasDesdeFirebase();
-  }
-
-  Future<void> cargarSillasDesdeFirebase() async {
-    try {
-      List<Silla_1> sillasDesdeFirebase = await leesillas.fetchSillas();
-      setState(() {
-        sillas = sillasDesdeFirebase;
-      });
-    } catch (e) {
-      print('Error al cargar las sillas desde Firebase: $e');
-    }
-  }
-
+class Eliminar_Silla extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
+    final sillasProvider = Provider.of<SillasProvider>(context);
+    final sillas = sillasProvider.sillas;
     return Scaffold(
       body: ListView(
         children: [

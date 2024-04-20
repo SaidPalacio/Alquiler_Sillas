@@ -1,17 +1,17 @@
-import 'package:agendar_sillas/Providers/Guardar_categoria.dart';
+import 'package:agendar_sillas/Http/Guardar_categoria.dart';
 import 'package:agendar_sillas/Pages/amin.dart';
 import 'package:agendar_sillas/models/categoria_model.dart';
 import 'package:flutter/material.dart';
 
 
-class categoria extends StatefulWidget {
-  const  categoria({super.key});
+class categoriawidget extends StatefulWidget {
+  const  categoriawidget({super.key});
 
   @override
-  State<categoria> createState() => _categoriaState();
+  State<categoriawidget> createState() => _categoriawidgetState();
 }
 
-class _categoriaState extends State<categoria> {
+class _categoriawidgetState extends State<categoriawidget> {
   final categoria_provider _firebaseProvider = categoria_provider();
   final TextEditingController _nombre = TextEditingController();
   final TextEditingController _imagenesController = TextEditingController();
@@ -129,7 +129,7 @@ class _categoriaState extends State<categoria> {
       List<String> imagenes = _imagenesController.text.split(',');
 
       // Crear una instancia de la silla
-      categorias nuevacategoria = categorias(
+      categoria nuevacategoria = categoria(
         nombre: nombre,
         imagenes: imagenes,
       );

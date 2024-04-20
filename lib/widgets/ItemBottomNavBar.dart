@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../Providers/guardar_reserva.dart';
+import '../Http/guardar_reserva.dart';
 
 class ItemBottomNavBar extends StatefulWidget {
   final int cantidad;

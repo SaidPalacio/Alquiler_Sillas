@@ -1,7 +1,6 @@
 import 'dart:math';
-
-import 'package:agendar_sillas/Providers/guardar_sillas.dart';
-import 'package:agendar_sillas/Pages/amin.dart';
+import 'package:agendar_sillas/Pages/Cliente.dart';
+import 'package:agendar_sillas/Http/guardar_sillas.dart';
 import 'package:agendar_sillas/models/Sillas.dart';
 import 'package:flutter/material.dart';
 
@@ -114,7 +113,7 @@ class _agregarsillaState extends State<agregarsilla> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const admin() , 
+                            builder: (context) => const cliente() , 
                           ),
                         );
                       }

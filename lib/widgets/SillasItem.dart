@@ -1,36 +1,15 @@
-import 'package:agendar_sillas/Providers/leer_sillas.dart';
-import 'package:agendar_sillas/models/Sillas.dart';
 import 'package:agendar_sillas/widgets/DetallesSilla.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../Providers/sillas_provider.dart';
 
-class SillaItem extends StatefulWidget {
-  @override
-  State<SillaItem> createState() => _SillaItemState();
-}
 
-class _SillaItemState extends State<SillaItem> {
-  leersillas leesillas = leersillas();
-  List<Silla_1> sillas = [];
-
-  @override
-  void initState() {
-    super.initState();
-    cargarSillasDesdeFirebase();
-  }
-
-  Future<void> cargarSillasDesdeFirebase() async {
-    try {
-      List<Silla_1> sillasDesdeFirebase = await leesillas.fetchSillas();
-      setState(() {
-        sillas = sillasDesdeFirebase;
-      });
-    } catch (e) {
-      print('Error al cargar las sillas desde Firebase: $e');
-    }
-  }
-
+  class SillaItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final sillasProvider = Provider.of<SillasProvider>(context);
+    final sillas = sillasProvider.sillas;
+
     return GridView.count(
       childAspectRatio: MediaQuery.of(context).size.width / (MediaQuery.of(context).size.width > 600 ? 4.4 : 2.2) / 300, 
       physics: NeverScrollableScrollPhysics(), 
@@ -85,6 +64,7 @@ class _SillaItemState extends State<SillaItem> {
                   height: 150,
                   child: Image.asset(
                     silla.imagenes.first,
+                    //silla.imagenes.first,
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -135,4 +115,3 @@ class _SillaItemState extends State<SillaItem> {
     );
   }
 }
-

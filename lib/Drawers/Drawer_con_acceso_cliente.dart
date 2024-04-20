@@ -1,4 +1,3 @@
-import 'package:agendar_sillas/Providers/leer_usuarios_clientes.dart';
 import 'package:agendar_sillas/widgets/AgregarSilla.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,12 +13,8 @@ class Drawer_con_acceso_cliente extends StatefulWidget {
 }
 
 class _Drawer_con_acceso_clienteState extends State<Drawer_con_acceso_cliente> {
-  leerusuarios leeusuarios = leerusuarios();
+  
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
   Future<List<String>> recuperardatos() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

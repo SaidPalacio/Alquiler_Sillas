@@ -1,9 +1,10 @@
-import 'package:agendar_sillas/Providers/leer_sillas.dart';
 import 'package:agendar_sillas/delegates/search_sillas_delegate.dart';
-import 'package:agendar_sillas/models/Sillas.dart';
 import 'package:agendar_sillas/widgets/Categoriewidget.dart';
 import 'package:agendar_sillas/widgets/SillasItem.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../Providers/sillas_provider.dart';
 
 class Tipo_sillas_cliente extends StatefulWidget {
   const Tipo_sillas_cliente({super.key});
@@ -13,28 +14,12 @@ class Tipo_sillas_cliente extends StatefulWidget {
 }
 
 class _Tipo_sillas_clienteState extends State<Tipo_sillas_cliente> {
-  leersillas leesillas = leersillas();
-  List<Silla_1> sillas = [];
-
-  @override
-  void initState() {
-    super.initState();
-    cargarSillasDesdeFirebase();
-  }
-
-  Future<void> cargarSillasDesdeFirebase() async {
-    try {
-      List<Silla_1> sillasDesdeFirebase = await leesillas.fetchSillas();
-      setState(() {
-        sillas = sillasDesdeFirebase;
-      });
-    } catch (e) {
-      print('Error al cargar las sillas desde Firebase: $e');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    final sillasProvider = Provider.of<SillasProvider>(context);
+    final sillasList = sillasProvider.sillas;
+
+    
     return Container(
       // Temporal
       //height: 500,
@@ -61,33 +46,43 @@ class _Tipo_sillas_clienteState extends State<Tipo_sillas_cliente> {
                 onPressed: () {
                   showSearch(
                     context: context,
-                    delegate: SearchSillasDelegate(listaSillas: sillas),
+                    delegate: SearchSillasDelegate(listaSillas: sillasList),
                   );
                 },
                 icon: Icon(
-                  Icons.search, 
-                  color: Colors.grey, 
+                  Icons.search,
+                  color: Colors.grey,
                 ),
               ),
               SizedBox(
-                width:10
-              ), 
-              Expanded(
-                child: TextFormField(
-                  onTap: () {
-                    showSearch(
-                      context: context,
-                      delegate: SearchSillasDelegate(listaSillas: sillas),
-                    );
-                  },
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Buscar silla", 
-                    hintStyle: TextStyle(
-                      color: Colors.grey), 
+                width: 90,
+                  child: TextButton(
+                onPressed: () {
+                  showSearch(
+                    context: context,
+                    delegate: SearchSillasDelegate(listaSillas: sillasList),
+                  );          //Boton de busqueda
+                },
+                style: ButtonStyle(
+                  elevation: MaterialStateProperty.all(0), // Eliminar la sombra
+                  overlayColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.pressed)) {
+                        return Colors
+                            .transparent; // Color transparente cuando se presiona
+                      }
+                      return Colors
+                          .transparent; // Manejar el caso cuando no se presiona
+                    },
                   ),
                 ),
-              ),
+                child: Text(
+                  "Buscar silla",
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+              )),
               Spacer(),
             ],
           ),

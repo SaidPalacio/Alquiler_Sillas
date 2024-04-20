@@ -1,39 +1,17 @@
-import 'package:agendar_sillas/Providers/leer_sillas.dart';
 import 'package:agendar_sillas/delegates/search_sillas_delegate.dart';
-import 'package:agendar_sillas/models/Sillas.dart';
 import 'package:agendar_sillas/widgets/Categoriewidget.dart';
 import 'package:agendar_sillas/widgets/SillasItem.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class Tipo_sillas_admin extends StatefulWidget {
-  const Tipo_sillas_admin({super.key});
+import '../Providers/sillas_provider.dart';
 
-  @override
-  State<Tipo_sillas_admin> createState() => _Tipo_sillas_adminState();
-}
-
-class _Tipo_sillas_adminState extends State<Tipo_sillas_admin> {
-  leersillas leesillas = leersillas();
-  List<Silla_1> sillas = [];
-  @override
-  void initState() {
-    super.initState();
-    cargarSillasDesdeFirebase();
-  }
-
-  Future<void> cargarSillasDesdeFirebase() async {
-    try {
-      List<Silla_1> sillasDesdeFirebase = await leesillas.fetchSillas();
-      setState(() {
-        sillas = sillasDesdeFirebase;
-      });
-    } catch (e) {
-      print('Error al cargar las sillas desde Firebase: $e');
-    }
-  }
- 
+class Tipo_sillas_admin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final sillasProvider = Provider.of<SillasProvider>(context);
+    final sillas = sillasProvider.sillas;
+    
     return Container(
       // Temporal
       //height: 500,

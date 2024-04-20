@@ -1,58 +1,24 @@
-import 'package:agendar_sillas/Providers/leer_categoria.dart';
-import 'package:agendar_sillas/Providers/leer_sillas.dart';
+import 'package:agendar_sillas/Providers/categorias_provider.dart';
 import 'package:agendar_sillas/models/Sillas.dart';
-import 'package:agendar_sillas/models/categoria_model.dart';
 import 'package:agendar_sillas/widgets/ResultadosBusquedaPage.dart';
 import 'package:agendar_sillas/widgets/Filtro_sillas.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class Categoriewidget extends StatefulWidget {
-  @override
-  State<Categoriewidget> createState() => _CategoriewidgetState();
-}
+import '../Providers/sillas_provider.dart';
 
-class _CategoriewidgetState extends State<Categoriewidget> {
-  leercategorias leecategorias = leercategorias();
-  List<categorias> categoriasList = [];
-  leersillas leesillas = leersillas();
-  List<Silla_1> sillas = [];
-
-  @override
-  void initState() {
-    super.initState();
-    cargarcategoriasDesdeFirebase();
-    cargarSillasDesdeFirebase();
-  }
-
-  Future<void> cargarcategoriasDesdeFirebase() async {
-    try {
-      List<categorias> categoriasDesdeFirebase =
-          await leecategorias.fetchCategoria();
-      setState(() {
-        categoriasList = categoriasDesdeFirebase;
-      });
-    } catch (e) {
-      print('Error al cargar las categorias desde Firebase: $e');
-    }
-  }
-
-  Future<void> cargarSillasDesdeFirebase() async {
-    try {
-      List<Silla_1> sillasDesdeFirebase = await leesillas.fetchSillas();
-      setState(() {
-        sillas = sillasDesdeFirebase;
-      });
-    } catch (e) {
-      print('Error al cargar las sillas desde Firebase: $e');
-    }
-  }
-
+class Categoriewidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final sillasProvider = Provider.of<SillasProvider>(context);
+    final sillas = sillasProvider.sillas;
+    final categoriasProvider = Provider.of<CategoriaProvider>(context);
+    final categorias = categoriasProvider.categorias;
+
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
-        children: categoriasList.map((categoria) {
+        children: categorias.map((categoria) {
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 10),
             padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
