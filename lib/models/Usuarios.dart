@@ -4,7 +4,7 @@ class UsuarioModel {
   final String correo;
   final String direccion;
   final int idUsuario;
-  late final String nombre;
+  final String nombre;
   final String telefono;
   final String apellido;
 
@@ -34,7 +34,7 @@ class UsuarioModel {
       contrasena: json['contrasena'] ?? '',
       correo: json['correo'] ?? '',
       direccion: json['direccion'] ?? '',
-      idUsuario: json['idusuario'] ?? 0,
+      idUsuario: json['idUsuario'] ?? 0,
       nombre: json['nombre'] ?? '',
       telefono: json['telefono'] ?? '',
       apellido: json['apellido'] ?? '',

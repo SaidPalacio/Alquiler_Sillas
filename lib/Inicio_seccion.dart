@@ -91,8 +91,6 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
   for (UsuarioModel usuario in listaUsuarios) {
     if (usuario.correo == correo) {
       nombreUsuario = usuario.nombre;
-      //int idusuario = usuario.idUsuario;
-      //print(idusuario);
       break; // Salir del bucle una vez que se encuentra el usuario
     }
   }

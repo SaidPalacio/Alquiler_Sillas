@@ -36,7 +36,7 @@ class _clienteState extends State<cliente> {
   @override
   void initState() {
     super.initState();
-    // Cargar las sillas al iniciar el widget cliente
+    // En esta vaina se carga toda la información
     Provider.of<SillasProvider>(context, listen: false).fetchSillas();
     Provider.of<CategoriaProvider >(context,listen:false).fetchCategorias();
     Provider.of<UsuariosProvider >(context,listen:false).fetchUsuarios();
