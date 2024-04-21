@@ -1,5 +1,4 @@
 import 'package:agendar_sillas/Providers/reserva_provider.dart';
-import 'package:agendar_sillas/models/reserva_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
