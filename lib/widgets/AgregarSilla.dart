@@ -3,6 +3,9 @@ import 'package:agendar_sillas/Pages/Cliente.dart';
 import 'package:agendar_sillas/Http/guardar_sillas.dart';
 import 'package:agendar_sillas/models/Sillas.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../Providers/sillas_provider.dart';
 
 
 class agregarsilla extends StatefulWidget {
@@ -88,6 +91,7 @@ class _agregarsillaState extends State<agregarsilla> {
                   ElevatedButton(
                     onPressed:(){ 
                       _guardarSilla();
+                      Provider.of<SillasProvider>(context, listen: false).fetchSillas();
                       if(mensaje==false){
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
