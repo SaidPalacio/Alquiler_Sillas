@@ -68,11 +68,10 @@ class Drawer_sin_Acceso_cliente extends StatelessWidget {
                     SizedBox(height: 13),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.pushReplacement(
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const Inicio_seccion()
-                          ),
+                              builder: (context) => Inicio_seccion()),
                         );
                       },
                       style: ElevatedButton.styleFrom(

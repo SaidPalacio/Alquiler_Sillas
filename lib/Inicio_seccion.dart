@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class Inicio_seccion extends StatefulWidget {
   const Inicio_seccion({super.key});
 
@@ -84,27 +83,29 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
       print('$key: ${prefs.get(key)}');
     }
   }
-  
 
-  String obtenerNombreUsuarioPorCorreo(String correo, List<UsuarioModel> listaUsuarios) {
-  String nombreUsuario = "";
-  for (UsuarioModel usuario in listaUsuarios) {
-    if (usuario.correo == correo) {
-      nombreUsuario = usuario.nombre;
-      break; // Salir del bucle una vez que se encuentra el usuario
+  String obtenerNombreUsuarioPorCorreo(
+      String correo, List<UsuarioModel> listaUsuarios) {
+    String nombreUsuario = "";
+    for (UsuarioModel usuario in listaUsuarios) {
+      if (usuario.correo == correo) {
+        nombreUsuario = usuario.nombre;
+        break; // Salir del bucle una vez que se encuentra el usuario
+      }
     }
+    return nombreUsuario;
   }
-  return nombreUsuario;
-  }
-  int obteneridusuarioporcorreo(String correo, List<UsuarioModel> listaUsuarios) {
-  int idusuario = 0;
-  for (UsuarioModel usuario in listaUsuarios) {
-    if (usuario.correo == correo) {
-      idusuario = usuario.idUsuario;
-      break; // Salir del bucle una vez que se encuentra el usuario
+
+  int obteneridusuarioporcorreo(
+      String correo, List<UsuarioModel> listaUsuarios) {
+    int idusuario = 0;
+    for (UsuarioModel usuario in listaUsuarios) {
+      if (usuario.correo == correo) {
+        idusuario = usuario.idUsuario;
+        break; // Salir del bucle una vez que se encuentra el usuario
+      }
     }
-  }
-  return idusuario;
+    return idusuario;
   }
 
   /*Future<void> borrardatos() async {
@@ -134,51 +135,34 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
 
     return Scaffold(
       body: Stack(
-        fit: StackFit.expand,
         children: [
           /*Image.asset(
             'fondo_silla_2.png', 
             fit: BoxFit.cover,
           ),*/
+          Padding(
+            padding: EdgeInsets.only(left: 50, top: 80, right: 0),
+            child: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                size: 40,
+                color: Color(0xFF4C53A5),
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+          const SizedBox(
+            height: 50,
+          ),
           Column(
             children: [
               const SizedBox(height: 40),
-              Align(
-                alignment: Alignment.topLeft,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const cliente(),
-                      ),
-                    );
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                      const Color.fromARGB(255, 8, 222, 205),
-                    ),
-                    fixedSize: MaterialStateProperty.all(const Size(135, 40)),
-                    shape: MaterialStateProperty.all<OutlinedBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                    side: MaterialStateProperty.all<BorderSide>(
-                      const BorderSide(color: Colors.black),
-                    ),
-                  ),
-                  child: const Text(
-                    "← ATRAS",
-                    style: TextStyle(color: Colors.black, fontSize: 20),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 40),
               SizedBox(
-                height: 200,
+                height: 140,
                 width: 200,
-                child: ClipOval(
+                /*child: ClipOval(
                   child: Container(
                     margin: const EdgeInsets.only(bottom: 0),
                     child: FadeInImage.assetNetwork(
@@ -189,14 +173,14 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
                       width: double.infinity,
                     ),
                   ),
-                ),
+                ),*/
               ),
               Text(
                 'TAINID ALQUILER',
                 style: TextStyle(
                   fontSize: 40,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Color(0xFF4C53A5),
                 ),
               ),
               Padding(
@@ -220,42 +204,62 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
                       const SizedBox(
                         height: 70,
                       ),
-                      TextButton(
-                        onPressed: (){
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Registrarse()),
-                          );
-                        }, 
-                        child: Text(
-                          "Registrarse",
-                          style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: MediaQuery.of(context).size.width * 0.04, 
-                          color: Colors.black,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment
+                            .center, // Alinea los elementos al centro horizontalmente
+                        children: [
+                          Text(
+                            "¿No te has registrado?",
+                            style: TextStyle(
+                              color: Color(0xFF4C53A5),
+                              fontSize: 15,
+                            ),
                           ),
-                        )
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Registrarse()),
+                              );
+                            },
+                            child: Text(
+                              "Registrarse",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize:
+                                    MediaQuery.of(context).size.width * 0.03,
+                                color: Color(0xFF4C53A5),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(
                         height: 50,
                       ),
                       ElevatedButton(
                         onPressed: () async {
-                          String nombreusuario= "";
-                          int idusuario=0;
-                          nombreusuario= obtenerNombreUsuarioPorCorreo(usuario.text, usuarios);
-                          if(nombreusuario == ""){
-                            nombreusuario = obtenerNombreUsuarioPorCorreo(usuario.text, proveedores);
+                          String nombreusuario = "";
+                          int idusuario = 0;
+                          nombreusuario = obtenerNombreUsuarioPorCorreo(
+                              usuario.text, usuarios);
+                          if (nombreusuario == "") {
+                            nombreusuario = obtenerNombreUsuarioPorCorreo(
+                                usuario.text, proveedores);
                           }
-                          idusuario= obteneridusuarioporcorreo(usuario.text, usuarios);
-                          if(idusuario == 0){
-                            idusuario = obteneridusuarioporcorreo(usuario.text, proveedores);
+                          idusuario =
+                              obteneridusuarioporcorreo(usuario.text, usuarios);
+                          if (idusuario == 0) {
+                            idusuario = obteneridusuarioporcorreo(
+                                usuario.text, proveedores);
                           }
                           print("hola");
                           //List<String?> valores = await usuario_pin();
-                          bool isLoggedIn =
-                              await authService.signIn(usuario.text, pin.text,nombreusuario,idusuario);
-                          bool isLoggedIn_2 = await authService_2.signIn_2(usuario.text, pin.text, nombreusuario,idusuario);
+                          bool isLoggedIn = await authService.signIn(
+                              usuario.text, pin.text, nombreusuario, idusuario);
+                          bool isLoggedIn_2 = await authService_2.signIn_2(
+                              usuario.text, pin.text, nombreusuario, idusuario);
                           if (isLoggedIn == true) {
                             print('Usuario y contraseña correctos en cliente');
                             Navigator.push(
@@ -285,7 +289,7 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
-                            const Color.fromARGB(255, 8, 222, 205),
+                            Colors.white,
                           ),
                           fixedSize:
                               MaterialStateProperty.all(const Size(200, 40)),
@@ -295,12 +299,13 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
                             ),
                           ),
                           side: MaterialStateProperty.all<BorderSide>(
-                            const BorderSide(color: Colors.black),
+                            const BorderSide(color: Colors.white),
                           ),
                         ),
                         child: const Text(
                           "Acceder",
-                          style: TextStyle(color: Colors.black, fontSize: 20),
+                          style:
+                              TextStyle(color: Color(0xFF4C53A5), fontSize: 20),
                         ),
                       )
                     ],

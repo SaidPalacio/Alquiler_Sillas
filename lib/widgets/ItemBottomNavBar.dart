@@ -98,6 +98,7 @@ class _ItemBottomNavBarState extends State<ItemBottomNavBar> {
                 if(ingreso==true){
                   if (widget.cantdias > 0) {
                     _guardarSilla(precioTotal);
+                    Navigator.pop(context);
                     Provider.of<ReservaProvider >(context,listen:false).fetchreservas();
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(

@@ -27,46 +27,33 @@ class _agregarsillaState extends State<agregarsilla> {
     return Scaffold(
         body: Stack(
           children: [
-            Container(
+            /*Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/fondo_silla_2.png'), 
                   fit: BoxFit.cover, 
                 ),
               ), 
+            ),*/
+            Padding(
+            padding: EdgeInsets.only(left: 50, top: 80, right: 0),
+            child: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                size: 40,
+                color: Color(0xFF4C53A5),
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
             ),
+          ),
             Padding(
               padding: const EdgeInsets.all(80.0),
               child:  Column(
                 children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: ElevatedButton(
-                      onPressed:(){
-                        Navigator.pop(context);
-                      },
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 8, 222, 205),),
-                        fixedSize: MaterialStateProperty.all(const Size(135, 30)),
-                        shape: MaterialStateProperty.all<OutlinedBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                        side: MaterialStateProperty.all<BorderSide>(
-                          const BorderSide(color: Colors.black), 
-                        ),
-                      ),
-                      child: const Text(
-                        "← ATRAS",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 100,),
+                  
+                  const SizedBox(height: 110,),
                   TextField(
                     controller: _nombre,
                     decoration: const InputDecoration(labelText: 'Nombres'),
@@ -119,7 +106,7 @@ class _agregarsillaState extends State<agregarsilla> {
                       }
                     },
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 8, 222, 205),),
+                      backgroundColor: MaterialStateProperty.all( Colors.white),
                       fixedSize: MaterialStateProperty.all(const Size(200, 40)),
                       shape: MaterialStateProperty.all<OutlinedBorder>(
                         RoundedRectangleBorder(
@@ -127,13 +114,13 @@ class _agregarsillaState extends State<agregarsilla> {
                         ),
                       ),
                       side: MaterialStateProperty.all<BorderSide>(
-                        const BorderSide(color: Colors.black), 
+                        const BorderSide(color: Colors.white), 
                       ),
                     ),
                     child: const Text(
                       "AGREGAR SILLA",
                       style: TextStyle(
-                        color: Colors.black,
+                        color: Color(0xFF4C53A5),
                         fontSize: 20
                       ),
                     ),
