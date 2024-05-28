@@ -1,5 +1,5 @@
 import 'package:agendar_sillas/Http/Guardar_categoria.dart';
-import 'package:agendar_sillas/Pages/amin.dart';
+import 'package:agendar_sillas/Pages/Cliente.dart';
 import 'package:agendar_sillas/models/categoria_model.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +12,7 @@ class categoriawidget extends StatefulWidget {
 }
 
 class _categoriawidgetState extends State<categoriawidget> {
-  final categoria_provider _firebaseProvider = categoria_provider();
+  final Categoria_Provider _firebaseProvider = Categoria_Provider();
   final TextEditingController _nombre = TextEditingController();
   final TextEditingController _imagenesController = TextEditingController();
   bool mensaje=false;
@@ -21,50 +21,32 @@ class _categoriawidgetState extends State<categoriawidget> {
     return Scaffold(
         body: Stack(
           children: [
-            Container(
+            /*Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/fondo_silla_2.png'), 
                   fit: BoxFit.cover, 
                 ),
               ), 
+            ),*/
+            Padding(
+              padding: EdgeInsets.only(left: 50, top: 80, right: 0),
+              child: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                size: 40,
+                color: Color(0xFF4C53A5),
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
             ),
             Padding(
               padding: const EdgeInsets.all(80.0),
               child:  Column(
                 children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: ElevatedButton(
-                      onPressed:(){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const admin() , 
-                          ),
-                        );
-                      },
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 8, 222, 205),),
-                        fixedSize: MaterialStateProperty.all(const Size(135, 30)),
-                        shape: MaterialStateProperty.all<OutlinedBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                        side: MaterialStateProperty.all<BorderSide>(
-                          const BorderSide(color: Colors.black), 
-                        ),
-                      ),
-                      child: const Text(
-                        "← ATRAS",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20
-                        ),
-                      ),
-                    ),
-                  ),
+
                   const SizedBox(height: 100,),
                   TextField(
                     controller: _nombre,
@@ -81,7 +63,7 @@ class _categoriawidgetState extends State<categoriawidget> {
                       if(mensaje==false){
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text("categoria AGREGADA"),
+                            content: Text("CATEGORIA AGREGADA"),
                           ),
                         );
                         mensaje=true;
@@ -90,7 +72,7 @@ class _categoriawidgetState extends State<categoriawidget> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const admin() , 
+                            builder: (context) => const cliente() , 
                           ),
                         );
                       }
@@ -125,17 +107,17 @@ class _categoriawidgetState extends State<categoriawidget> {
   Future<void> _guardarSilla() async {
     try {
       // Parsear la información de la silla
+      String imagenes = _imagenesController.text;
       String nombre = _nombre.text;
-      List<String> imagenes = _imagenesController.text.split(',');
 
       // Crear una instancia de la silla
       categoria nuevacategoria = categoria(
-        nombre: nombre,
         imagenes: imagenes,
+        nombre: nombre,
       );
 
       // Llamar al método para guardar la silla en Firebase
-      await _firebaseProvider.guardarSilla(nuevacategoria);
+      await _firebaseProvider.guardarCategoria(nuevacategoria);
 
       // Mostrar mensaje de éxito
       showDialog(

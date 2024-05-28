@@ -7,7 +7,7 @@ class reserva {
   int cantidad;
   int idsilla;
   int idusuario;
-  List<String> imagenes;
+  String imagenes;
 
   reserva({
     required this.nombre,
@@ -44,7 +44,7 @@ class reserva {
       cantidad: json['cantidad'] ?? 0,
       idsilla: json['idsilla'] ?? 0,
       idusuario: json['idusuario'] ?? 0,
-      imagenes: List<String>.from(json['imagenes'] ?? []),
+      imagenes: json['imagenes'] ?? '',
     );
   }
 

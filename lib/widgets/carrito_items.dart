@@ -36,7 +36,7 @@ class _CartItemSamplesState extends State<CartItemSamples> {
               width: 70,
               margin: EdgeInsets.only(right: 15 ),
               child: Image.asset(
-                reservas.imagenes.first,
+                reservas.imagenes,
               ),
             ),
             Padding(

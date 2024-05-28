@@ -4,6 +4,8 @@ import 'package:agendar_sillas/widgets/AgregarSilla.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../widgets/AgregarCategoria.dart';
+
 class draweradmi extends StatefulWidget {
   const draweradmi({super.key});
 
@@ -106,23 +108,23 @@ class _draweradmiState extends State<draweradmi> {
                   },
                 ),
                 ListTile(
-                  title: const Text('Editar Silla'),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const agregarsilla(),
-                      ),
-                    );
-                  },
-                ),
-                ListTile(
                   title: const Text('Eliminar Silla'),
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) =>  Eliminar_Silla(),
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  title: const Text('Agregar Categoria'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>  categoriawidget(),
                       ),
                     );
                   },

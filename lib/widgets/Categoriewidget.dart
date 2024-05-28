@@ -41,7 +41,7 @@ class Categoriewidget extends StatelessWidget {
                     child: Container(
                       margin: EdgeInsets.symmetric(vertical: 10),
                       child: Image.asset(
-                        categoria.imagenes.first,
+                        categoria.imagenes,
                         height: MediaQuery.of(context).size.width * 0.09,
                         width: MediaQuery.of(context).size.width * 0.09, 
                       ),

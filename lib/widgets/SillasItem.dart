@@ -63,7 +63,7 @@ import '../Providers/sillas_provider.dart';
                   width: double.infinity,
                   height: 150,
                   child: Image.asset(
-                    silla.imagenes.first,
+                    silla.imagenes,
                     //silla.imagenes.first,
                     fit: BoxFit.contain,
                   ),

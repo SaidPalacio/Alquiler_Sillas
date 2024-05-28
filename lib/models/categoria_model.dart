@@ -1,22 +1,22 @@
 class categoria {
+  String imagenes;
   String nombre;
-  List<String> imagenes;
 
   categoria({
-    required this.nombre,
     required this.imagenes,
+    required this.nombre,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      'nombre': nombre,
       'imagenes': imagenes,
+      'nombre': nombre,
     };
   }
   factory categoria.fromJson(Map<String, dynamic> json) {
     return categoria(
+      imagenes: json['imagenes'] ?? '',
       nombre: json['nombre'] ?? '',
-      imagenes: List<String>.from(json['imagenes'] ?? []),
     );
   }
 

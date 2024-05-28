@@ -141,7 +141,7 @@ class _ItemBottomNavBarState extends State<ItemBottomNavBar> {
       ),
     );
   }
-
+  
   Future<void> _guardarSilla(double precio) async {
     try {
       // Crear una instancia de la silla

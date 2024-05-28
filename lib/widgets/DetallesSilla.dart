@@ -1,6 +1,4 @@
-import 'package:agendar_sillas/Pages/Cliente.dart';
 import 'package:agendar_sillas/models/Sillas.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:clippy_flutter/arc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +31,7 @@ class _DetalleSillaState extends State<DetalleSilla> {
           Padding(
             padding: EdgeInsets.all(16),
             child: Image.asset(
-              widget.silla.imagenes.first,
+              widget.silla.imagenes,
               height: 300,
             ),
           ),
@@ -223,7 +221,7 @@ class _DetalleSillaState extends State<DetalleSilla> {
     );
   }
 }
-
+/*
 class DetalleSilla_2 extends StatelessWidget {
   final Silla_1 silla;
 
@@ -303,3 +301,4 @@ class DetalleSilla_2 extends StatelessWidget {
     );
   }
 }
+*/

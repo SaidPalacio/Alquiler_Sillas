@@ -1,15 +1,21 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:agendar_sillas/models/Sillas.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:flutter/material.dart';
 
 class FirebaseProvider_3 {
-  final String _endpoint = "https://alquilersillas-10-default-rtdb.firebaseio.com/Sillas.json";
+  final String endpoint = "https://cristian8261.pythonanywhere.com/api/registrarSilla";
+  
   
   Future<void> guardarSilla(Silla_1 silla) async {
     try {
-      final url = Uri.parse(_endpoint);
+      final url = Uri.parse(endpoint);
       final response = await http.post(
         url,
+        headers:<String, String> {
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
         body: jsonEncode(silla.toJson()),
       );
 
@@ -21,3 +27,60 @@ class FirebaseProvider_3 {
     }
   }
 }
+
+//------------------------------------------------------------------------------------------
+
+/*
+class FirebaseProvider_3_1 with ChangeNotifier {
+  List<Silla_1> _sillas = [];
+
+  List<Silla_1> get sillas => _sillas;
+
+  Future<void> fetchSillas() async {
+    final url = "https://cristian8261.pythonanywhere.com/api/sillas";
+    final token = await getToken();
+    
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final List<dynamic> responseData = jsonDecode(response.body);
+      _sillas = responseData.map((silla) => Silla_1.fromJson(silla)).toList();
+      notifyListeners();
+    } else {
+      throw Exception("Failed to load sillas");
+    }
+  }
+
+  Future<String> getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('token') ?? '';
+  }
+
+  Future<void> registrarSilla(Silla_1 silla) async {
+    final url = "https://cristian8261.pythonanywhere.com/api/registrarSilla";
+    final token = await getToken();
+
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(silla.toJson()),
+    );
+
+    if (response.statusCode == 201) {
+      fetchSillas();
+    } else {
+      throw Exception("Failed to register silla");
+    }
+  }
+}
+
+*/

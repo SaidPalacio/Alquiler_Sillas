@@ -88,7 +88,7 @@ class Eliminar_Silla extends StatelessWidget {
                               width: double.infinity,
                               height: 150,
                               child: Image.asset(
-                                silla.imagenes.first,
+                                silla.imagenes,
                                 fit: BoxFit.contain,
                               ),
                             ),

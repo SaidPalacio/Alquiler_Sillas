@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:agendar_sillas/Pages/Cliente.dart';
 import 'package:agendar_sillas/Http/guardar_sillas.dart';
 import 'package:agendar_sillas/models/Sillas.dart';
@@ -145,7 +146,7 @@ class _agregarsillaState extends State<agregarsilla> {
       String descripcion = _descripcion.text;
       String promocion = _promocion.text;
       int cantidad = int.parse(_cantidad.text); //int.parse(_cantidad.text);
-      List<String> imagenes = _imagenesController.text.split(',');
+      String imagenes = _imagenesController.text;
       Random random = Random();
       int id = random.nextInt(1000000)+1;
 
@@ -153,12 +154,12 @@ class _agregarsillaState extends State<agregarsilla> {
       Silla_1 nuevaSilla = Silla_1(
         nombre: nombre,
         categoria: categoria,
-        precio: precio,
         descripcion: descripcion,
-        promocion: promocion,
-        cantidad: cantidad,
         id: id,
+        precio: precio,
+        promocion: promocion,
         imagenes: imagenes,
+        cantidad: cantidad,
       );
 
       // Llamar al método para guardar la silla en Firebase
