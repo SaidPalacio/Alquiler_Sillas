@@ -1,7 +1,7 @@
 import 'package:agendar_sillas/widgets/AgregarSilla.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:jwt_decoder/jwt_decoder.dart';
 import '../Pages/Cliente.dart';
 
 
@@ -14,14 +14,18 @@ class Drawer_con_acceso_cliente extends StatefulWidget {
 
 class _Drawer_con_acceso_clienteState extends State<Drawer_con_acceso_cliente> {
   
-
-
+  
   Future<List<String>> recuperardatos() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String usuario = prefs.getString('correo') ?? "";
-    String nombreUsuario = prefs.getString("nombre") ?? "";
-
-    return [usuario, nombreUsuario];
+    String? token = prefs.getString('jwt_token');
+    if (token != null) {
+      Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+      // Suponiendo que el claim que contiene el nombre se llama 'nombre'
+      String nombre = decodedToken['nombre'];
+      String correo = decodedToken['correo'];
+      return [nombre,correo];
+    }
+    return [];
   }
   Future<void> borrardatos() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -39,8 +43,8 @@ class _Drawer_con_acceso_clienteState extends State<Drawer_con_acceso_cliente> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator();
         } else {
-          String correoUsuario = snapshot.data?[0] ?? "";
-          String nombreUsuario = snapshot.data?[1] ?? "";
+          String correoUsuario = snapshot.data?[1] ?? "";
+          String nombreUsuario = snapshot.data?[0] ?? "";
 
           return Drawer(
             child: ListView(

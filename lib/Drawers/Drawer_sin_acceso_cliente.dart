@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../Inicio_seccion.dart';
+import '../initsecios.dart';
 
 class Drawer_sin_Acceso_cliente extends StatelessWidget {
   const Drawer_sin_Acceso_cliente({super.key});
@@ -71,7 +70,7 @@ class Drawer_sin_Acceso_cliente extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => Inicio_seccion()),
+                              builder: (context) => LoginPage()),
                         );
                       },
                       style: ElevatedButton.styleFrom(

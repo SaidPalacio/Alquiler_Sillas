@@ -1,6 +1,5 @@
 import 'package:agendar_sillas/Http/Guardar_categoria.dart';
 import 'package:agendar_sillas/Pages/Cliente.dart';
-import 'package:agendar_sillas/models/categoria_model.dart';
 import 'package:flutter/material.dart';
 
 
@@ -110,14 +109,8 @@ class _categoriawidgetState extends State<categoriawidget> {
       String imagenes = _imagenesController.text;
       String nombre = _nombre.text;
 
-      // Crear una instancia de la silla
-      categoria nuevacategoria = categoria(
-        imagenes: imagenes,
-        nombre: nombre,
-      );
-
       // Llamar al método para guardar la silla en Firebase
-      await _firebaseProvider.guardarCategoria(nuevacategoria);
+      await _firebaseProvider.registrarCategoria(nombre,imagenes);
 
       // Mostrar mensaje de éxito
       showDialog(
@@ -125,7 +118,7 @@ class _categoriawidgetState extends State<categoriawidget> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('categoria Guardada'),
-            content: Text('La categoria ha sido guardada exitosamente en Firebase.'),
+            content: Text('La categoria ha sido guardada exitosamente.'),
             actions: [
               TextButton(
                 onPressed: () {

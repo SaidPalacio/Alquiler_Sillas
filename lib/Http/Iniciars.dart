@@ -36,6 +36,166 @@ class AuthenticationService {
   }
 }
 
+
+
+
+
+//--------------------------------------------------------------
+class AuthService {
+  final String _baseUrl = 'https://cristian8261.pythonanywhere.com/api/'; // Reemplaza con la URL de tu API
+
+  Future<bool> signIn(String correo, String contrasena) async {
+    final url = Uri.parse('$_baseUrl/loginproveedores');
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'correo': correo, 'contrasena': contrasena}),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      final String token = data['token'];
+
+      // Guardar token en SharedPreferences
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('jwt_token', token);
+      await prefs.setInt('provee_id', data['provee_id']);
+      await prefs.setBool('provee', true);
+      
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<Map<String, dynamic>?> getUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('jwt_token');
+    final id = prefs.getInt('provee_id');
+
+    if (token != null && id != null) {
+      return {'token': token, 'provee_id': id};
+    }
+    return null;
+  }
+}
+//_----------------------------------
+
+//........................................................
+class AuthService_2 {
+  final String _baseUrl = 'https://cristian8261.pythonanywhere.com/api/'; // Reemplaza con la URL de tu API
+
+  Future<bool> signIn(String correo, String contrasena) async {
+    final url = Uri.parse('$_baseUrl/loginusuarios');
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'correo': correo, 'contrasena': contrasena}),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      final String token = data['token'];
+
+      // Guardar token en SharedPreferences
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('jwt_token', token);
+      await prefs.setInt('cliente_id', data['cliente_id']);
+      await prefs.setBool('cliente', true);
+      
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<Map<String, dynamic>?> getUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('jwt_token');
+    final id = prefs.getInt('cliente_id');
+
+    if (token != null && id != null) {
+      return {'token': token, 'cliente_id': id};
+    }
+    return null;
+  }
+}
+
+//...............................................................
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class AuthProvider {
+  final String _loginEndpoint = "https://cristian8261.pythonanywhere.com/api/loginproveedores";
+
+  Future<bool> signIn_2(String email, String password) async {
+    try {
+      final response = await http.post(
+        Uri.parse(_loginEndpoint),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'username': email,
+          'password': password,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        final token = data['access_token'];
+        print("token guardado");
+
+        // Guardar el token en SharedPreferences
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setString('jwt_token', token);
+        prefs.setString('email', email);
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      throw Exception('Failed to sign in: $e');
+    }
+  }
+
+  Future<String?> getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('jwt_token');
+  }
+}
+
+class AuthenticationService_2 {
+  final AuthProvider _authProvider = AuthProvider();
+
+  Future<bool> signIn_2(String email, String password) async {
+    final success = await _authProvider.signIn_2(email, password);
+
+    if (success) {
+      final prefs = await SharedPreferences.getInstance();
+        prefs.setBool('provee', true);
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+
+
+/*
 class FirebaseProvider_2 {
   final String _endpoint = "https://alquilersillas-10-default-rtdb.firebaseio.com/Proveedor.json";
   
@@ -68,7 +228,7 @@ class AuthenticationService_2 {
     }
     return proveedor != null;
   }
-}
+}*/
 
 
 

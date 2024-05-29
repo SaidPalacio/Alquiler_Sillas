@@ -125,7 +125,7 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
           context, MaterialPageRoute(builder: (context) => cliente()));
     }
   }*/
-
+  
   @override
   Widget build(BuildContext context) {
     final usuariosProvider = Provider.of<UsuariosProvider>(context);
@@ -259,7 +259,7 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
                           bool isLoggedIn = await authService.signIn(
                               usuario.text, pin.text, nombreusuario, idusuario);
                           bool isLoggedIn_2 = await authService_2.signIn_2(
-                              usuario.text, pin.text, nombreusuario, idusuario);
+                              usuario.text, pin.text);
                           if (isLoggedIn == true) {
                             print('Usuario y contraseña correctos en cliente');
                             Navigator.push(
@@ -269,6 +269,7 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
                               ),
                             );
                           } else if (isLoggedIn_2 == true) {
+                            print(isLoggedIn_2);
                             print(
                                 'Usuario y contraseña correctos en proveedor');
                             Navigator.push(
@@ -278,6 +279,7 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
                               ),
                             );
                           } else {
+                            print(isLoggedIn_2);
                             print('Usuario o contraseña incorrectos');
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(

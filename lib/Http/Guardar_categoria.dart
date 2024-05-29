@@ -1,7 +1,42 @@
 import 'dart:convert';
-import 'package:agendar_sillas/models/categoria_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
+
+class Categoria_Provider {
+  Future<void> registrarCategoria(String nombre, String imagenes) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('jwt_token');
+
+    if (token != null) {
+      final url = Uri.parse('https://cristian8261.pythonanywhere.com/api/registrarCategoria');
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: jsonEncode({
+          'nombre': nombre,
+          'imagenes': imagenes,
+        }),
+      );
+
+      if (response.statusCode == 201) {
+        print('Categoría guardada exitosamente');
+      } else {
+        print('Error al guardar la categoría: ${response.body}');
+      }
+    } else {
+      print('Token no encontrado');
+    }
+  }
+}
+
+
+
+
+/*
 class Categoria_Provider {
   final String _endpoint = "https://cristian8261.pythonanywhere.com/api/registrarCategoria";
   
@@ -24,6 +59,15 @@ class Categoria_Provider {
     }
   }
 }
+ */
+
+
+
+
+
+
+
+
 
 /*class categoria_provider {
   final String endpoint = "https://cristian8261.pythonanywhere.com/api";
