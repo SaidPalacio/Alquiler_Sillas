@@ -10,9 +10,9 @@ class LoginPage extends StatelessWidget {
   final AuthService_2 _authService_2 = AuthService_2();
 
   void _login(BuildContext context) async {
-    final correo = _correoController.text;
-    final contrasena = _contrasenaController.text;
-
+    final String correo = _correoController.text;
+    final String contrasena = _contrasenaController.text;
+    
     final success = await _authService.signIn(correo, contrasena);
     final success_2 = await _authService_2.signIn(correo, contrasena);
     if (success) {

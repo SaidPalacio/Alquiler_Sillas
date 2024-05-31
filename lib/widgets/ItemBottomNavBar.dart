@@ -53,7 +53,7 @@ class _ItemBottomNavBarState extends State<ItemBottomNavBar> {
 
   Future<int> obtenerid() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getInt("idusuario") ??
+    return prefs.getInt("cliente_id") ??
         0; // Devuelve el valor asociado a la clave, o una cadena vacía si no se encuentra ningún valor
   }
 
@@ -147,15 +147,15 @@ class _ItemBottomNavBarState extends State<ItemBottomNavBar> {
       // Crear una instancia de la silla
       int idusuario = await obtenerid();
       reserva nuevareserva = reserva(
+        idusuario: idusuario,
+        idsilla: widget.silla.id,
         nombre: widget.silla.nombre,
         categoria: widget.silla.categoria,
-        precio: precio,
         descripcion: widget.silla.descripcion,
+        precio: precio,
         promocion: widget.silla.promocion,
-        cantidad: widget.cantidad,
-        idsilla: widget.silla.id,
-        idusuario: idusuario,
         imagenes: widget.silla.imagenes,
+        cantidad: widget.cantidad,
       );
       //String correo =obtenercorreo().toString();
       // Llamar al método para guardar la silla en Firebase

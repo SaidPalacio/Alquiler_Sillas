@@ -66,11 +66,11 @@ class Eliminar_Silla extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              IconButton(
+                              IconButton(   //boton de basura
                                 onPressed: () {
                                   
                                 },
-                                icon: Icon(Icons.delete,
+                                icon: Icon(Icons.delete,      
                                 color: Colors.red,)
                               )
                             ],

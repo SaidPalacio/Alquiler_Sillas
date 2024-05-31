@@ -1,9 +1,52 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:agendar_sillas/models/Sillas.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:flutter/material.dart';
 
+class FirebaseProvider_3 {
+  Future<void> guardarSilla(Silla_1 silla) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('jwt_token');
+    
+    if (token != null) {
+      final url = Uri.parse('https://cristian8261.pythonanywhere.com/api/registrarSilla');
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: jsonEncode({
+          'nombre': silla.nombre,
+          'categoria':silla.categoria,
+          'descripcion': silla.descripcion,
+          'imagenes': silla.imagenes,
+          'precio': silla.precio,
+          'promocion':silla.promocion,
+          'cantidad': silla.cantidad
+        }),
+      );
+      print(response.body);
+      if (response.statusCode == 200) {
+        print('Silla guardada exitosamente');
+      } else {
+        print('Error al guardar la Silla: ${response.body}');
+      }
+    } else {
+      print('Token no encontrado');
+    }
+  }
+}
+
+
+
+
+
+
+
+/*
 class FirebaseProvider_3 {
   final String endpoint = "https://cristian8261.pythonanywhere.com/api/registrarSilla";
   
@@ -26,7 +69,7 @@ class FirebaseProvider_3 {
       throw Exception("Error al guardar la silla: $e");
     }
   }
-}
+}*/
 
 //------------------------------------------------------------------------------------------
 

@@ -1,50 +1,50 @@
 class reserva {
-  String nombre;
-  String categoria;
-  double precio;
-  String descripcion;
-  String promocion;
-  int cantidad;
   int idsilla;
   int idusuario;
+  String nombre;
+  String categoria;
+  String descripcion;
+  double precio;
+  String promocion;
   String imagenes;
+  int cantidad;
 
   reserva({
+    required this.idusuario,
+    required this.idsilla,
     required this.nombre,
     required this.categoria,
-    required this.precio,
     required this.descripcion,
+    required this.precio,
     required this.promocion,
-    required this.cantidad,
-    required this.idsilla,
-    required this.idusuario,
     required this.imagenes,
+    required this.cantidad,
   });
 
   Map<String, dynamic> toJson() {
     return {
+      'idusuario':idusuario,
+      'idsilla':idsilla,
       'nombre': nombre,
       'categoria': categoria,
-      'precio': precio,
       'descripcion': descripcion,
+      'precio': precio,
       'promocion': promocion,
-      'cantidad':cantidad,
-      'idsilla':idsilla,
-      'idusuario':idusuario,
       'imagenes': imagenes,
+      'cantidad':cantidad,
     };
   }
   factory reserva.fromJson(Map<String, dynamic> json) {
     return reserva(
-      nombre: json['nombre'] ?? '',
-      categoria: json['categoria'] ?? '',
-      precio: (json['precio'] ?? 0.0).toDouble(),
-      descripcion: json['descripcion'] ?? '',
-      promocion: json['promocion'] ?? '',
-      cantidad: json['cantidad'] ?? 0,
       idsilla: json['idsilla'] ?? 0,
       idusuario: json['idusuario'] ?? 0,
+      nombre: json['nombre'] ?? '',
+      categoria: json['categoria'] ?? '',
+      descripcion: json['descripcion'] ?? '',
+      precio: (json['precio'] ?? 0.0).toDouble(),
+      promocion: json['promocion'] ?? '',
       imagenes: json['imagenes'] ?? '',
+      cantidad: json['cantidad'] ?? 0,
     );
   }
 

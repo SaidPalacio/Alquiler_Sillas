@@ -1,10 +1,11 @@
 import 'dart:math';
-import 'package:agendar_sillas/Inicio_seccion.dart';
 import 'package:agendar_sillas/Http/usuario.dart';
 import 'package:agendar_sillas/Providers/Usuarios_provider.dart';
 import 'package:agendar_sillas/models/Usuarios.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'initsecios.dart';
 
 class Registrarse extends StatefulWidget {
   const Registrarse({super.key});
@@ -135,7 +136,7 @@ class _RegistrarseState extends State<Registrarse> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const Inicio_seccion(),
+                            builder: (context) => LoginPage(),
                           ),
                         );
                       } else {

@@ -1,5 +1,3 @@
-import 'package:agendar_sillas/Pages/Cliente.dart';
-import 'package:agendar_sillas/Http/Iniciars.dart';
 import 'package:agendar_sillas/Providers/Usuarios_provider.dart';
 import 'package:agendar_sillas/Providers/proveedores_provider.dart';
 import 'package:agendar_sillas/Registrarse.dart';
@@ -31,8 +29,8 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
   final TextEditingController usuario = TextEditingController();
   final TextEditingController pin = TextEditingController();
   final TextEditingController correo = TextEditingController();
-  AuthenticationService authService = AuthenticationService();
-  AuthenticationService_2 authService_2 = AuthenticationService_2();
+  //AuthenticationService authService = AuthenticationService();
+  //3AuthenticationService_2 authService_2 = AuthenticationService_2();
   bool esAdministrador = false;
 
   /* void verificar(usuario,pin,List<String?> valores){
@@ -256,38 +254,11 @@ class _Inicio_seccionState extends State<Inicio_seccion> {
                           }
                           print("hola");
                           //List<String?> valores = await usuario_pin();
-                          bool isLoggedIn = await authService.signIn(
-                              usuario.text, pin.text, nombreusuario, idusuario);
-                          bool isLoggedIn_2 = await authService_2.signIn_2(
-                              usuario.text, pin.text);
-                          if (isLoggedIn == true) {
-                            print('Usuario y contraseña correctos en cliente');
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const cliente(),
-                              ),
-                            );
-                          } else if (isLoggedIn_2 == true) {
-                            print(isLoggedIn_2);
-                            print(
-                                'Usuario y contraseña correctos en proveedor');
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const cliente(),
-                              ),
-                            );
-                          } else {
-                            print(isLoggedIn_2);
-                            print('Usuario o contraseña incorrectos');
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content:
-                                    Text("Usuario o contraseña incorrectos"),
-                              ),
-                            );
-                          }
+                         // bool isLoggedIn = await authService.signIn(
+                              //usuario.text, pin.text, nombreusuario, idusuario);
+                          //bool isLoggedIn_2 = await authService_2.signIn_2(
+                              //usuario.text, pin.text);
+                          
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(

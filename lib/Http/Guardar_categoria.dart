@@ -7,9 +7,9 @@ class Categoria_Provider {
   Future<void> registrarCategoria(String nombre, String imagenes) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('jwt_token');
-
+    
     if (token != null) {
-      final url = Uri.parse('https://cristian8261.pythonanywhere.com/api/registrarCategoria');
+      final url = Uri.parse('https://cristian8261.pythonanywhere.com/api/registrarCategoriaaa');
       final response = await http.post(
         url,
         headers: {
@@ -21,8 +21,8 @@ class Categoria_Provider {
           'imagenes': imagenes,
         }),
       );
-
-      if (response.statusCode == 201) {
+      print(response.body);
+      if (response.statusCode == 200) {
         print('Categoría guardada exitosamente');
       } else {
         print('Error al guardar la categoría: ${response.body}');

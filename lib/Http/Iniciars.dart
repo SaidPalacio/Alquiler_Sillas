@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-class FirebaseProvider {
+/*class FirebaseProvider {
   final String _endpoint = "https://alquilersillas-10-default-rtdb.firebaseio.com/Usuario.json";
   
   Future<Map<String, dynamic>> fetchUsuarios() async {
@@ -34,7 +34,7 @@ class AuthenticationService {
     
     return usuario != null;
   }
-}
+}*/
 
 
 
@@ -42,9 +42,10 @@ class AuthenticationService {
 
 //--------------------------------------------------------------
 class AuthService {
-  final String _baseUrl = 'https://cristian8261.pythonanywhere.com/api/'; // Reemplaza con la URL de tu API
+  final String _baseUrl = 'https://cristian8261.pythonanywhere.com/api/'; 
 
   Future<bool> signIn(String correo, String contrasena) async {
+  try {
     final url = Uri.parse('$_baseUrl/loginproveedores');
     final response = await http.post(
       url,
@@ -54,8 +55,8 @@ class AuthService {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      final String token = data['token'];
-
+      final token = data['token'];
+      print(token);
       // Guardar token en SharedPreferences
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('jwt_token', token);
@@ -66,24 +67,17 @@ class AuthService {
     } else {
       return false;
     }
+  } catch (e) {
+    print('Error en signIn: $e');
+    return false;
   }
-
-  Future<Map<String, dynamic>?> getUserData() async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('jwt_token');
-    final id = prefs.getInt('provee_id');
-
-    if (token != null && id != null) {
-      return {'token': token, 'provee_id': id};
-    }
-    return null;
-  }
+}
 }
 //_----------------------------------
 
 //........................................................
 class AuthService_2 {
-  final String _baseUrl = 'https://cristian8261.pythonanywhere.com/api/'; // Reemplaza con la URL de tu API
+  final String _baseUrl = 'https://cristian8261.pythonanywhere.com/api/'; 
 
   Future<bool> signIn(String correo, String contrasena) async {
     final url = Uri.parse('$_baseUrl/loginusuarios');
@@ -96,7 +90,7 @@ class AuthService_2 {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       final String token = data['token'];
-
+      print(token);
       // Guardar token en SharedPreferences
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('jwt_token', token);
@@ -107,17 +101,6 @@ class AuthService_2 {
     } else {
       return false;
     }
-  }
-
-  Future<Map<String, dynamic>?> getUserData() async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('jwt_token');
-    final id = prefs.getInt('cliente_id');
-
-    if (token != null && id != null) {
-      return {'token': token, 'cliente_id': id};
-    }
-    return null;
   }
 }
 
@@ -137,7 +120,7 @@ class AuthService_2 {
 
 
 
-
+/*
 class AuthProvider {
   final String _loginEndpoint = "https://cristian8261.pythonanywhere.com/api/loginproveedores";
 
@@ -195,7 +178,7 @@ class AuthenticationService_2 {
 }
 
 
-/*
+
 class FirebaseProvider_2 {
   final String _endpoint = "https://alquilersillas-10-default-rtdb.firebaseio.com/Proveedor.json";
   
