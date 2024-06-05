@@ -3,42 +3,37 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/reserva_model.dart';
 
-
-Future<int> recuperardatos() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  int idusuario = prefs.getInt('idusuario') ?? 0;
-  return idusuario;
-}
-
-
 class leerreserva {
-  final String _endpoint = "https://alquilersillas-10-default-rtdb.firebaseio.com/Reserva.json";
-  
+  final String _endpoint =
+      "https://cristian8261.pythonanywhere.com/api/ObtenerReservas"; // Cambia esto al endpoint correcto
+
   Future<List<reserva>> fetchreserva() async {
-    int idUsuario= await recuperardatos();
+    
     try {
-      final response = await http.get(Uri.parse(_endpoint));
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      int? idUsuario = prefs.getInt('cliente_id');
+      String? token = prefs.getString('jwt_token');
+
+      if (token == null) {
+        throw Exception('Token not found');
+      }
+
+      final response = await http.get(
+        Uri.parse('$_endpoint?idusuario=$idUsuario'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
       if (response.statusCode == 200) {
-        final Map<String, dynamic> data = jsonDecode(response.body);
-        final List<reserva> reservasLit = [];
-        data.entries.forEach((entry) {
-          final reservaData = entry.value as Map<String, dynamic>;
-          final reservas= reserva.fromJson(reservaData);
-          if (reservas.idusuario == idUsuario) {
-            reservasLit.add(reservas);
-          }
-        });
-        return reservasLit;
+        final List<dynamic> data = jsonDecode(response.body);
+        return data.map((reservaData) => reserva.fromJson(reservaData)).toList();
       } else {
-        throw Exception('Failed to load reserva');
+        throw Exception('Failed to load reservas');
       }
     } catch (e) {
       throw Exception('Error fetching reserva: $e');
     }
   }
 }
-
-
-
-
- 
